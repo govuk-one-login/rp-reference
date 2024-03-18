@@ -1,0 +1,32 @@
+{% extends "template.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block content %}
+  <div class="govuk-width-container ">
+    <main class="govuk-main-wrapper">
+
+      <h1 class="govuk-heading-l">Logged Out</h1>
+
+      {{ govukButton({
+        text: "Continue",
+        href: "/"
+      }) }}
+
+    </div>
+  </main>
+</div>
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+  <script>
+    /*
+    (function(){
+      // Inform the parent window that the logout is complete
+      if(window.parent){
+        window.parent.postMessage("logout", "*");
+      }
+    })();
+    */
+  </script>
+{% endblock %}

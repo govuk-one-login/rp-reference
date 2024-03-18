@@ -1,0 +1,64 @@
+{% extends "template.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block content %}
+  <div class="govuk-width-container ">
+    <main class="govuk-main-wrapper">
+
+      <h1 class="govuk-heading-l" id="heading">Sign Out</h1>
+
+      <div id="info">
+        <p class="govuk-body">
+          Attempting to sign out automatically.
+        </p>
+        <p class="govuk-body">
+          If this doesn't to work after a few moments you can 
+          <a href="{{endSessionUrl}}">sign out manually</a>.
+        </p>
+      </div>
+
+      <div id="info-complete" style="display:none">
+        {{ govukButton({
+          text: "Continue",
+          href: "/"
+        }) }}
+      </div>
+
+    </div>
+  </main>
+</div>
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+  <script>
+    (function(endSessionUrl){
+
+      // This script replicates the Azure B2C logout process
+
+      document.getElementById("heading").innerText = "Signing Out";
+      var iframe = document.createElement("iframe");
+      iframe.setAttribute("style", "display:none;width:1px;height:1px");
+      iframe.name = "logout";
+      iframe.src = endSessionUrl;
+  
+      iframe.addEventListener('load', () => {
+        console.log("logout iframe loaded");
+        document.getElementById("heading").innerText = "You have signed out";
+        document.getElementById("info").style.display = "none";
+        document.getElementById("info-complete").style.display = "";
+      });
+
+      /*
+      window.addEventListener("message", (event) => {
+        if(event.data === "logout"){
+          console.log("logout message received");
+          document.getElementById("heading").innerText = "Logged out";
+        }
+      }, false);
+      */
+
+      document.body.appendChild(iframe);
+    })('{{endSessionUrl}}');
+  </script>
+{% endblock %}

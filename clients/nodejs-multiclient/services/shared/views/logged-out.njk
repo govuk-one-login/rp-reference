@@ -1,0 +1,23 @@
+{% extends "template.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% block content %}
+  <div class="govuk-width-container ">
+    <main class="govuk-main-wrapper">
+
+      <h1 class="govuk-heading-l">Logged out</h1>
+
+      <p class="govuk-body">
+        {{ message.text }}
+      </p>
+
+      {{ govukButton({
+        text: "Continue",
+        href: "/"
+      }) }}
+
+    </div>
+  </main>
+</div>
+{% endblock %}
