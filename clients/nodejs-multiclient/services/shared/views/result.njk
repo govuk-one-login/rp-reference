@@ -1,0 +1,42 @@
+{% extends "template.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block content %}
+  <div class="govuk-width-container ">
+    <main class="govuk-main-wrapper">
+      <h1 class="govuk-heading-l">{{ result.serviceName }}</h1>
+
+      <h1 class="govuk-heading-l">Access Token</h1>
+      <pre>{{result.accessToken}}</pre>
+
+      <h1 class="govuk-heading-l">ID Token</h1>
+      <pre>{{result.idToken}}</pre>
+
+      <h1 class="govuk-heading-l">User Info</h1>
+      <pre><code>{{result.userinfo}}</code></pre>
+
+      <h1 class="govuk-heading-l">Core Identity Claim</h1>
+      {% if result.coreIdentity %}
+      <pre>{{result.coreIdentity}}</pre>
+      {% else %}
+      <p class="govuk-body-l">None</p>
+      {% endif %}
+
+      {# {{ govukButton({
+        text: "Continue",
+        href: "/"
+      }) }} #}
+
+      {{ govukButton({
+        text: "Verify identity",
+        href: "verify"
+      }) }}
+
+      {{ govukButton({
+        text: "Logout",
+        href: "logout"
+      }) }}
+    </div>
+  </main>
+</div>
+{% endblock %}

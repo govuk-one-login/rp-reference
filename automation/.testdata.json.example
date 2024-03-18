@@ -1,0 +1,36 @@
+/* This is a template for the testdata.json file
+ * Populate this file with data required by the application
+ * You can register a user account yourself to generate the
+ * username, password and totpSecret values for performing
+ * an authentication journey (without identity verification)
+ */
+{
+  
+  /* Resister a user account to generate the following values
+   */
+  "username": "user@example.com",
+  "password": "password",
+  "totpSecret": "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ",
+
+  /* The following test data is not valid. You'll need to
+   * contact the GOV.UK One Login team to get test data that
+   * will pass the identity verification process.
+   */
+  "passportNumber": "123456789",
+  "surname": "Smith",
+  "firstName": "Alice",
+  "dateOfBirthDay": "01",
+  "dateOfBirthMonth": "01",
+  "dateOfBirthYear": "1985",
+  "passportExpiryDay": "01",
+  "passportExpiryMonth": "01",
+  "passportExpiryYear": "2030",
+  "postcode": "SW1A1AA",
+  "address": "1 TEST ROAD, LONDON, SW1A 1AA",
+  "addressYearFrom": "2010",
+  "kbvAnswers": {
+    "Q00001": 12345,
+    "Q00002": 678,
+    "Q00003": 9
+  }
+}

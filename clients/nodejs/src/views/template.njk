@@ -1,0 +1,47 @@
+{% extends "govuk/template.njk" %}
+{% from "components/header/macro.njk" import header %}
+
+{% block pageTitle %}Relying Party{% endblock %}
+{% block head %}
+  <!--[if !IE 8]><!-->
+  <link href="/govuk-frontend-4.0.1.min.css" rel="stylesheet">
+  <!--<![endif]-->
+
+  {# For Internet Explorer 8, you need to compile specific stylesheet #}
+  {# see https://frontend.design-system.service.gov.uk/supporting-ie8/#support-internet-explorer-8 #}
+  <!--[if IE 8]>
+    <link href="/govuk-frontend-ie8-4.0.1.min.css" rel="stylesheet">
+  <![endif]-->
+
+  <style>
+    pre {
+      background: #f9f9f8;
+      padding: 15px;
+      overflow: auto;
+      position: relative;
+      border: 1px solid #bfc1c3;
+    }
+  </style>
+
+{% endblock %}
+
+{% block header %}
+  {{ header ({
+    logotype: 'Example',
+    homepageUrl: "/"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <pre>Default Template</pre>
+{% endblock %}
+
+{% block bodyEnd %}
+  {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
+  <script src="/govuk-frontend-4.0.1.min.js"></script>
+  <script>
+    window
+      .GOVUKFrontend
+      .initAll()
+  </script>
+{% endblock %}
