@@ -37,7 +37,7 @@
     "express-session": "^1.17.3",
     "govuk-frontend": "^4.0.1",
     "jose": "^4.9.3",
-    "nunjucks": "^3.2.3",
+    "nunjucks": "^3.2.4",
     "openid-client": "^5.1.5",
     "sass": "^1.63.6"
   }
