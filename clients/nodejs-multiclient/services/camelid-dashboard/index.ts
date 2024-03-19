@@ -50,6 +50,7 @@ declare module 'express-session' {
       clientSecret: process.env.OIDC_CLIENT_SECRET,
       tokenAuthMethod: process.env.OIDC_TOKEN_AUTH_METHOD,
       privateKey: process.env.OIDC_PRIVATE_KEY,
+      idTokenSigningAlg: process.env.OIDC_ID_TOKEN_SIGNING_ALG,
       discoveryEndpoint: process.env.OIDC_ISSUER_DISCOVERY_ENDPOINT,
       authorizeRedirectUri: process.env.OIDC_AUTHORIZE_REDIRECT_URI,
       postLogoutRedirectUri: process.env.OIDC_LOGOUT_REDIRECT_URI,

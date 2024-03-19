@@ -26,9 +26,9 @@ export function createPrivateKeyClient(
     {
       // Default configuration for using GOV.UK Sign In
       client_id: configuration.clientId,
-      token_endpoint_auth_method: "private_key_jwt",
+      token_endpoint_auth_method: configuration.tokenAuthMethod,
       token_endpoint_auth_signing_alg: "PS256",
-      id_token_signed_response_alg: "RS256",
+      id_token_signed_response_alg: configuration.idTokenSigningAlg,
     },
     configuration.clientMetadata
   );
@@ -50,8 +50,8 @@ export function createClientSecretClient(
       // Default configuration for using GOV.UK Sign In
       client_id: configuration.clientId,
       client_secret: configuration.clientSecret,
-      token_endpoint_auth_method: "client_secret_post",
-      id_token_signed_response_alg: "ES256",
+      token_endpoint_auth_method: configuration.tokenAuthMethod,
+      id_token_signed_response_alg: configuration.idTokenSigningAlg,
     },
     configuration.clientMetadata
   );

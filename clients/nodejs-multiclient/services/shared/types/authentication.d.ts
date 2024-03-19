@@ -3,6 +3,7 @@ type AuthMiddlewareConfiguration = {
   clientSecret?: string;
   tokenAuthMethod?: string;
   privateKey: string;
+  idTokenSigningAlg?: string;
   clientMetadata?: Partial<ClientMetadata>;
   authorizeRedirectUri?: string;
   postLogoutRedirectUri?: string;
