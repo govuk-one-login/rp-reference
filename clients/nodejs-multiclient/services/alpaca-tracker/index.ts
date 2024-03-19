@@ -47,6 +47,7 @@ declare module 'express-session' {
       clientSecret: process.env.OIDC_CLIENT_SECRET,
       tokenAuthMethod: process.env.OIDC_TOKEN_AUTH_METHOD,
       privateKey: process.env.OIDC_PRIVATE_KEY,
+      idTokenSigningAlg: process.env.OIDC_ID_TOKEN_SIGNING_ALG,
       discoveryEndpoint: process.env.OIDC_ISSUER_DISCOVERY_ENDPOINT,
       authorizeRedirectUri: process.env.OIDC_AUTHORIZE_REDIRECT_URI,
       postLogoutRedirectUri: process.env.OIDC_LOGOUT_REDIRECT_URI,
@@ -83,23 +84,8 @@ declare module 'express-session' {
         serviceIntroMessage: getServiceIntroMessage(), 
         serviceType: process.env.SERVICE_TYPE, 
         resultData: req.session.user,
-        // GOV.UK header config
-        // homepageUrl: `${getHomePageUrl()}`,
-        // serviceUrl: `${getServiceUrl()}`
         // Service header config
-        isProduction: getNodeEnv() == "development" ? false : true, 
-        navigationItems: [
-          {
-            href: "http://localhost:3001/camelid/dashboard",
-            text: "Dashboard",
-            id: "dashboard"
-          },
-          {
-            href: "/oauth/logout",
-            text: "Sign out of service",
-            id: "serviceSignOut"
-          }
-        ]
+        isProduction: getNodeEnv() == "development" ? false : true
       });
   });
 
