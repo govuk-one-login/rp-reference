@@ -1,22 +1,12 @@
 {
-  "extends": "@tsconfig/node16/tsconfig.json",
+  "extends": "./node_modules/@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
     "sourceMap": true,
-    "lib": ["dom"],
-    "target": "ES2020",
-    "noImplicitAny": true,
-    "moduleResolution": "node",
-    "skipLibCheck": true
+    "lib": ["dom"]
   },
   "include": [
     "services", 
-    "services/shared/types", 
-    "services/shared/utils/app.constants.ts", 
-    "services/shared/auth.ts", 
-    "services/shared/nunjucks.ts", 
-    "services/camelid-directory/index.ts", 
-    "services/alpaca-tracker/index.ts",
     "public"],
   "exclude": ["node_modules"],
   "ts-node": {
