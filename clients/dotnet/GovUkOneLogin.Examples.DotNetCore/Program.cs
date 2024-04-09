@@ -7,7 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 
-namespace govuk_one_login_aspdotnet_core
+namespace GovUkOneLogin.Examples.DotNet
 {
   public class Program
   {
