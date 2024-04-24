@@ -24,11 +24,11 @@ You need to supply the tool with a secret key to generate the one time codes.
 
 Follow the GOV.UK One Login journey to register. 
 
-![](/images/mfa01.png)
+![](images/mfa01.png)
 
 Select "Authenticator app" from the dropdown menu.
 
-![](/images/mfa02.png)
+![](images/mfa02.png)
 
 Copy the secret key (in this example it is `Y3BU OUHH 4CB7 JQNQ GYRS TUC5 PAHY RJAJ`) and pass it as a parameter to the command line tool `totp.ts`
 
