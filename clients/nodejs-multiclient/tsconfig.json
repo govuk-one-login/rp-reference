@@ -1,5 +1,5 @@
 {
-  "extends": "@tsconfig/node16/tsconfig.json",
+  "extends": "./node_modules/@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
     "sourceMap": true,
@@ -11,12 +11,6 @@
   },
   "include": [
     "services", 
-    "services/shared/types", 
-    "services/shared/utils/app.constants.ts", 
-    "services/shared/auth.ts", 
-    "services/shared/nunjucks.ts", 
-    "services/camelid-directory/index.ts", 
-    "services/alpaca-tracker/index.ts",
     "public"],
   "exclude": ["node_modules"],
   "ts-node": {
