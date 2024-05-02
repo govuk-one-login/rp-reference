@@ -142,7 +142,6 @@ function buildAuthorizationUrl(
   }
 
   // Construct the url and redirect on to the authorization endpoint
-  // return client.requestObject()
   return client.authorizationUrl(authorizationParameters);
 }
 
@@ -174,10 +173,10 @@ export async function auth(configuration: AuthMiddlewareConfiguration) {
 
   router.get("/oauth/login", (req: Request, res: Response) => {
     
-    const vtr = JSON.stringify([VECTORS_OF_TRUST.AUTH_LOW])
+    const vtr = JSON.stringify([VECTORS_OF_TRUST.AUTH_MEDIUM])
 
     // Construct the url and redirect on to the authorization endpoint
-    let authorizationUrl = buildAuthorizationUrl(configuration, req, res, client, vtr, undefined, req.query);
+    const authorizationUrl = buildAuthorizationUrl(configuration, req, res, client, vtr, undefined, req.query);
     console.log(authorizationUrl);
     res.redirect(authorizationUrl);
   });
