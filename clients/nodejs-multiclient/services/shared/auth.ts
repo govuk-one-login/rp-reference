@@ -280,7 +280,7 @@ export async function auth(configuration: AuthMiddlewareConfiguration) {
   router.post("/back-channel-logout",asyncHandler(async (req: Request, res: Response) => {
 
       const logoutToken =await verifyLogoutToken(req);
-
+      console.log(logoutToken);
       if (logoutToken && validateLogoutTokenClaims(logoutToken, req)) {
         await destroyUserSessions(logoutToken.sub!, req.sessionStore);
         res.sendStatus(HTTP_STATUS_CODES.OK);
