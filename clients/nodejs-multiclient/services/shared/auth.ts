@@ -142,6 +142,7 @@ function buildAuthorizationUrl(
   }
 
   // Construct the url and redirect on to the authorization endpoint
+  // return client.requestObject()
   return client.authorizationUrl(authorizationParameters);
 }
 
@@ -173,10 +174,10 @@ export async function auth(configuration: AuthMiddlewareConfiguration) {
 
   router.get("/oauth/login", (req: Request, res: Response) => {
     
-    const vtr = JSON.stringify([VECTORS_OF_TRUST.AUTH_MEDIUM])
+    const vtr = JSON.stringify([VECTORS_OF_TRUST.AUTH_LOW])
 
     // Construct the url and redirect on to the authorization endpoint
-    const authorizationUrl = buildAuthorizationUrl(configuration, req, res, client, vtr, undefined, req.query);
+    let authorizationUrl = buildAuthorizationUrl(configuration, req, res, client, vtr, undefined, req.query);
     console.log(authorizationUrl);
     res.redirect(authorizationUrl);
   });
@@ -280,7 +281,7 @@ export async function auth(configuration: AuthMiddlewareConfiguration) {
   router.post("/back-channel-logout",asyncHandler(async (req: Request, res: Response) => {
 
       const logoutToken =await verifyLogoutToken(req);
-
+      console.log(logoutToken);
       if (logoutToken && validateLogoutTokenClaims(logoutToken, req)) {
         await destroyUserSessions(logoutToken.sub!, req.sessionStore);
         res.sendStatus(HTTP_STATUS_CODES.OK);
