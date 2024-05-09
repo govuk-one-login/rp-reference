@@ -62,5 +62,5 @@ Salesforce provides a development console for debugging and testing code.
 ![alt text](image-2.png)
 - Once Added goto Identity | Auth.Prodivers | New and select the JWTGovUK under the Provider Type drop down list.
 ![alt text](image-1.png)
-- The output should look similar to the following image : ![alt text](image.png)
+- The output should look similar to the following image :![alt text](image-4.png)
 - Provide the Redirect URL and public_key.pem file to GOV.UK One Login Team so that your service can be registered.
