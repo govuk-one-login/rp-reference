@@ -150,7 +150,6 @@ global class JWTGovUK extends Auth.AuthProviderPluginClass {
     Long iat = DateTime.now().getTime() / 1000; // Current timestamp in seconds
     Long exp = iat + 3600; // Expiry time: 1 hour from issuance (adjust as needed)
 
-    String _FamilyName = fromJSON.FamilyName 
      
 
     // Construct JWT header
