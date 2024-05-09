@@ -35,7 +35,7 @@ private_key.pem - this is your private key, which you should store securely and 
 Custom metadata is customizable, deployable, packageable, and upgradeable application metadata. First you create a custom metadata type, which defines the form of the application metadata. Then you build reusable functionality that determines the behavior based on metadata of that type.
 
 #### Create Custom Metadata Manually
-
+![alt text](image-3.png)
 Create a Custom Metadata Types in Salesforce via **Custom Code | Custom Metadata Types.
 
 - Authorize Endpoint URL
@@ -59,6 +59,8 @@ Refer to the documentation for more information: https://help.salesforce.com/s/a
 Salesforce provides a development console for debugging and testing code.
 
 - Add the Private_Key_JWT via Custom Code | Apex Classes | New to create a new Apex class.
+![alt text](image-2.png)
 - Once Added goto Identity | Auth.Prodivers | New and select the JWTGovUK under the Provider Type drop down list.
-- The out should look similar to the following image : ![alt text](image.png)
+![alt text](image-1.png)
+- The output should look similar to the following image : ![alt text](image.png)
 - Provide the Redirect URL and public_key.pem file to GOV.UK One Login Team so that your service can be registered.
