@@ -20,3 +20,4 @@ See the application specific readme files for guidance on how to get these sampl
 - [DotNet Framework 4.7.2](clients/dotnet/GovUkOneLogin.Examples.DotNetFrameworkConsoleApp/README.md)
 - [Node.js](clients/nodejs/README.md)
 - [Node.js Multi-client](clients/nodejs-multiclient/README.md)
+- [Apex-SalesForce](clients/Apex-SalesForce/README.md)
