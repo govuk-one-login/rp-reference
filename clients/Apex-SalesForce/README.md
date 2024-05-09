@@ -1,13 +1,13 @@
 ## GOV.UK One Login Relying Party Application
 
-A SalesForce application using GOV.UK One Login to authenticate users.This is intended as a reference and doesn't represent production quality code.
+This is a SalesForce application using GOV.UK One Login to authenticate users. It is intended as a reference and doesn't represent production-quality code.
 
 ## Development
 
 To successfully integrate with GOV.UK One Login, the following pre-requisite work are required.
 
-- Create a key pair for private_key_jwt assertion
-- Create a Custom Metadata Types for the GOV.UK endpoints required for Apex class auth.AuthenticationPlugin
+- Create a key pair for the private_key_jwt assertion
+- Create Custom Metadata Types for the GOV.UK endpoints required for Apex class auth.AuthenticationPlugin
 - Import the provided Apex code into Salesforce
 
 ### Generate a Key Pair
@@ -32,11 +32,11 @@ private_key.pem - this is your private key, which you should store securely and 
 
 ### Custom Metadata types
 
-Custom metadata is customizable, deployable, packageable, and upgradeable application metadata. First you create a custom metadata type, which defines the form of the application metadata. Then you build reusable functionality that determines the behavior based on metadata of that type.
+Custom metadata is customizable, deployable, packageable, and upgradeable application metadata. First, you create a custom metadata type, which defines the form of the application metadata. Then, you build reusable functionality that determines the behaviour based on metadata of that type.
 
 #### Create Custom Metadata Manually
 
-Create a Custom Metadata Types in Salesforce via **Custom Code | Custom Metadata Types.
+Create Custom Metadata Types in Salesforce via **Custom Code | Custom Metadata Types.
 
 - Authorize Endpoint URL
 - Consumer Key
@@ -52,7 +52,7 @@ Refer to the documentation for more information: https://help.salesforce.com/s/a
 
   Install Custom Metadata Type Data Loader as per instruction here : https://appexchange.salesforce.com/appxListingDetail?listingId=a0N4V00000HrQTdUAN
 
- -Import the CustomMetaDataType.xls to create and populate the GOV.UK One Login OIDC endpoints and mandatory requirement such as Private Key.
+ **Import the CustomMetaDataType.xls to create and populate the GOV.UK One Login OIDC endpoints and mandatory requirement such as Private Key.
 
 ### Import the Apex code into Salesforce
 
