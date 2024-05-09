@@ -31,13 +31,12 @@ Create Custom Metadata Types in Salesforce per the screenshot above and add the 
 #### Import an existing Custom Metadata types
 
  - Install Custom Metadata Type Data Loader as per instruction here: https://appexchange.salesforce.com/appxListingDetail?listingId=a0N4V00000HrQTdUAN.
-
-**Import the CustomMetaDataType.xls(clients/Apex-SalesForce/CustomMetaDataType.xls)**.
+ - Import the CustomMetaDataType.xls(clients/Apex-SalesForce/CustomMetaDataType.xls).
 
 ### Import the Apex code into Salesforce
 
-- Add your Apex code in Salesforce via **Custom Code | Apex Classes | New** to create a new Apex class per the screenshot below.
+- Add your Apex code in Salesforce via **Custom Code | Apex Classes | New** to create a new Apex class, as shown in the screenshot below.
 ![alt text](image-2.png)
-- Add the imported Apex code as an identity provider in SalesForce via **Identity | Auth.Prodivers | New** select your Apex class under the **Provider Type** drop-down list.
+- Add the imported Apex code as an identity provider in SalesForce via **Identity | Auth.Prodivers | New** Select your Apex class under the **Provider Type** drop-down list.
 ![alt text](image-1.png)
 - The output should look similar to the following image:![alt text](image-4.png)
