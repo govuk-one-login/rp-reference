@@ -53,7 +53,7 @@ Refer to the documentation for more information: https://help.salesforce.com/s/a
 
   Install Custom Metadata Type Data Loader as per instruction here : https://appexchange.salesforce.com/appxListingDetail?listingId=a0N4V00000HrQTdUAN
 
- **Import the CustomMetaDataType.xls to create and populate the GOV.UK One Login OIDC endpoints and mandatory requirement such as Private Key.
+ **Import the CustomMetaDataType.xls(clients/Apex-SalesForce/CustomMetaDataType.xls) to create and populate the GOV.UK One Login OIDC endpoints and mandatory requirement such as Private Key.
 
 ### Import the Apex code into Salesforce
 
