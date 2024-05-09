@@ -202,7 +202,7 @@ private String generateRandomJti() {
 }
 
     
-    // Other methods...
+    //Method to generate a random string for nonce
     global String generateNonce() {
         // Generate a random string for nonce
         String chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
