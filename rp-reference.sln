@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "clients", "clients", "{49AF810A-6189-4695-A4F4-79295823673C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dotnet", "dotnet", "{518400E7-4709-45A6-952F-3EAB89548160}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GovUkOneLogin.Examples.DotNetCore", "clients\dotnet\GovUkOneLogin.Examples.DotNetCore\GovUkOneLogin.Examples.DotNetCore.csproj", "{348B4A45-87E4-4474-B903-D99147E4B193}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GovUkOneLogin.Examples.DotNetFrameworkConsoleApp", "clients\dotnet\GovUkOneLogin.Examples.DotNetFrameworkConsoleApp\GovUkOneLogin.Examples.DotNetFrameworkConsoleApp.csproj", "{33155F4A-185D-46C9-988C-AC93BC8229D4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{348B4A45-87E4-4474-B903-D99147E4B193}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{348B4A45-87E4-4474-B903-D99147E4B193}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{348B4A45-87E4-4474-B903-D99147E4B193}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{348B4A45-87E4-4474-B903-D99147E4B193}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33155F4A-185D-46C9-988C-AC93BC8229D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33155F4A-185D-46C9-988C-AC93BC8229D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33155F4A-185D-46C9-988C-AC93BC8229D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33155F4A-185D-46C9-988C-AC93BC8229D4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{518400E7-4709-45A6-952F-3EAB89548160} = {49AF810A-6189-4695-A4F4-79295823673C}
+		{348B4A45-87E4-4474-B903-D99147E4B193} = {518400E7-4709-45A6-952F-3EAB89548160}
+		{33155F4A-185D-46C9-988C-AC93BC8229D4} = {518400E7-4709-45A6-952F-3EAB89548160}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {38834DB1-0AB6-446B-876F-4F2DE0F7F91C}
+	EndGlobalSection
+EndGlobal
