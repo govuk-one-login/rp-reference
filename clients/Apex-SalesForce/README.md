@@ -1,34 +1,12 @@
 ## GOV.UK One Login Relying Party Application
 
-This is a SalesForce application using GOV.UK One Login to authenticate users. It is intended as a reference and doesn't represent production-quality code.
+This is an example code on integrating SalesForce with Gov.UK OneLogin. It is intended as a reference and doesn't represent production-quality code.
 
-## Development
-
-To successfully integrate with GOV.UK One Login, the following pre-requisite work are required.
-
+## Pre-Requisites
+- SalesForce Account
 - Create a key pair for the private_key_jwt assertion
 - Create Custom Metadata Types for the GOV.UK endpoints required for Apex class auth.AuthenticationPlugin
-- Import the provided Apex code into Salesforce
 
-### Generate a Key Pair
-
-You can generate a key pair (a public key and a corresponding private key) using OpenSSL.
-
-You’ll need your private key when:
-
-you’re registering your service to use GOV.UK One Login environments, such as integration or production
-you request the token using the private key authentication mechanism on the /token endpoint
-
-Run the following on your command line to generate your key pair:
-
-openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048
-
-openssl rsa -pubout -in private_key.pem -out public_key.pem
-
-You have now generated your key pair, which will appear on your machine as 2 files:
-
-public_key.pem - this is your public key, which you should share with GOV.UK One Login
-private_key.pem - this is your private key, which you should store securely and not share
 
 ### Custom Metadata types
 
