@@ -1,42 +1,45 @@
-## GOV.UK One Login Relying Party Application
+# JWTGovUK Salesforce Apex Class
 
-This is an example code on integrating SalesForce with Gov.UK OneLogin. It is intended as a reference and doesn't represent production-quality code.
+## Overview
+The `JWTGovUK` Salesforce Apex class is designed to facilitate JSON Web Token (JWT) authentication with a GOV.UK One Login It extends the `Auth.AuthProviderPluginClass`, making it suitable for use as an authentication provider plugin within the Salesforce platform. This is intended as a reference and doesn't represent production quality code.
 
-## Pre-Requisites
-- SalesForce Account
-- Create a key pair for the private_key_jwt assertion
-- Create Custom Metadata Types for the GOV.UK endpoints required for Apex class auth.AuthenticationPlugin
+## Features
+- Initiates authentication with the GOV.UK One Login.
+- Handles callback from the authentication provider.
+- Retrieves user information after successful authentication.
 
+## Usage
+1. **Installation**: Add the `JWTGovUK` class to your Salesforce organization.
+2. **Configuration**:
+   - Ensure that the necessary custom metadata types are set up correctly (`Jwtflowexample__mdt`).
+   - Set up the authentication provider configuration parameters (`Authorize_Endpoint_URL__c`, `Consumer_Key__c`, `Redirect_URL__c`, `Default_Scopes__c`, `Token_Endpoint_URL__c`, `PrivateKeyTest__c`, `User_Info_Endpoint_URL__c`).
+3. **Integration**:
+   - Use the `initiate` method to initiate the authentication flow.
+   - Implement the callback handling logic in the `handleCallback` method.
+   - Retrieve user information using the `getUserInfo` method.
 
-### Custom Metadata types
+## Dependencies
+- Generate key pair using OpenSSL
+- Salesforce Apex environment.
+- Integration with GOV.UK One Login.
 
-Custom metadata is customizable, deployable, packageable, and upgradeable application metadata. First, you create a custom metadata type, which defines the form of the application metadata. Then, you build reusable functionality that determines the behaviour based on that type of metadata.
+## Configuration Parameters
+- `Authorize_Endpoint_URL__c`: URL for authorization endpoint.
+- `Consumer_Key__c`: Consumer key provided by the authentication provider.
+- `Redirect_URL__c`: Redirect URL for callback after authentication.
+- `Default_Scopes__c`: Default scopes required for authentication.
+- `Token_Endpoint_URL__c`: URL for token endpoint.
+- `PrivateKeyTest__c`: Private key for signing JWT tokens.
+- `User_Info_Endpoint_URL__c`: URL for user information endpoint.
 
-#### Create Custom Metadata Manually
+## Custom Exceptions
+- `RegPluginException`: Exception thrown for registration plugin errors.
+- `CustomException`: Generic custom exception for handling errors.
 
-![alt text](image-3.png)
-Create Custom Metadata Types in Salesforce per the screenshot above and add the following custom Fields.
+## Utility Methods
+- `generateJWT`: Generates a JWT token for authentication.
+- `generateRandomJti`: Generates a random value for the JWT ID (jti).
+- `generateNonce`: Generates a random string for nonce.
+- `base64UrlEncode`: Encodes Blob data into a base64 URL-safe string.
+- `getTokenValueFromResponse`: Extracts token values from HTTP response body.
 
-- Authorize Endpoint URL
-- Consumer Key
-- Default Scopes
-- PrivateKey
-- Redirect URL
-- Send access token in the header
-- Token Endpoint URL
-- User Info Endpoint URL
-
-**Refer to the documentation for more information: https://help.salesforce.com/s/articleView?id=sf.custommetadatatypes_overview.htm&type=5**
-
-#### Import an existing Custom Metadata types
-
- - Install Custom Metadata Type Data Loader as per instruction here: https://appexchange.salesforce.com/appxListingDetail?listingId=a0N4V00000HrQTdUAN.
- - Import the CustomMetaDataType.xls(clients/Apex-SalesForce/CustomMetaDataType.xls).
-
-### Import the Apex code into Salesforce
-
-- Add your Apex code in Salesforce via **Custom Code | Apex Classes | New** to create a new Apex class, as shown in the screenshot below.
-![alt text](image-2.png)
-- Add the imported Apex code as an identity provider in SalesForce via **Identity | Auth.Prodivers | New** Select your Apex class under the **Provider Type** drop-down list.
-![alt text](image-1.png)
-- The output should look similar to the following image:![alt text](image-4.png)
