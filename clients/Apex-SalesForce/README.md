@@ -13,7 +13,9 @@ The `JWTGovUK` Salesforce Apex class is designed to facilitate JSON Web Token (J
 2. **Configuration**:
    - Ensure that the necessary custom metadata types are set up correctly (`Jwtflowexample__mdt`).
    - Set up the authentication provider configuration parameters (`Authorize_Endpoint_URL__c`, `Consumer_Key__c`, `Redirect_URL__c`, `Default_Scopes__c`, `Token_Endpoint_URL__c`, `PrivateKeyTest__c`, `User_Info_Endpoint_URL__c`).
-3. **Integration**:
+3. Alternatively, you can import the CustomMetaDatatype.xls
+   - Install Custom Metadata Type Data Loader as per instruction here: https://appexchange.salesforce.com/appxListingDetail?listingId=a0N4V00000HrQTdUAN
+4. **Integration**:
    - Use the `initiate` method to initiate the authentication flow.
    - Implement the callback handling logic in the `handleCallback` method.
    - Retrieve user information using the `getUserInfo` method.
