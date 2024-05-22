@@ -1,0 +1,27 @@
+{
+  "type": [
+    "VerifiableCredential",
+    "IdentityCheckCredential"
+  ],
+  "credentialSubject": {
+    "name": [
+      {
+        "nameParts": [
+          {
+            "value": "DAVID",
+            "type": "GivenName"
+          },
+          {
+            "value": "BAKER SMITH",
+            "type": "FamilyName"
+          }
+        ]
+      }
+    ],
+    "birthDate": [
+      {
+        "value": "1967-07-06"
+      }
+    ]
+  }
+}

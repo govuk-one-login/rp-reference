@@ -1,0 +1,29 @@
+{
+  "sub": "urn:fdc:gov.uk:2022:HEcB2lCfNGeugPRE6PdFpLNbRq6qBUVWDmK7odnvt0w",
+  "https://vocab.account.gov.uk/v1/passport": [
+    {
+      "expiryDate": "2030-01-01",
+      "icaoIssuerCode": "GBR",
+      "documentNumber": "321654987"
+    }
+  ],
+  "email_verified": true,
+  "phone_number_verified": true,
+  "phone_number": "+447777123456",
+  "https://vocab.account.gov.uk/v1/coreIdentityJWT": "eyJraWQiOiJpbnRlZ3JhdGlvbi5pZGVudGl0eS5hY2NvdW50Lmdvdi51ayNjOWY4ZGExYzg3NTI1YmI0MTY1MzU4M2MyZDA1Mjc0ZTg1ODA1YWI3ZDBhYmM1ODM3NmM3MTI4MTI5ZGFhOTM2IiwiYWxnIjoiRVMyNTYifQ.eyJzdWIiOiJ1cm46ZmRjOmdvdi51azoyMDIyOkhFY0IybENmTkdldWdQUkU2UGRGcExOYlJxNnFCVVZXRG1LN29kbnZ0MHciLCJhdWQiOiJGdWZTTllheUF5TzduOGIwNDA3WnFHWkZ6UjgiLCJuYmYiOjE3MTYzOTE2MjcsImlzcyI6Imh0dHBzOi8vaWRlbnRpdHkuaW50ZWdyYXRpb24uYWNjb3VudC5nb3YudWsvIiwidm90IjoiUDIiLCJleHAiOjE3MTYzOTM0MjcsImlhdCI6MTcxNjM5MTYyNywidmMiOnsidHlwZSI6WyJWZXJpZmlhYmxlQ3JlZGVudGlhbCIsIklkZW50aXR5Q2hlY2tDcmVkZW50aWFsIl0sImNyZWRlbnRpYWxTdWJqZWN0Ijp7Im5hbWUiOlt7Im5hbWVQYXJ0cyI6W3sidmFsdWUiOiJLRU5ORVRIIiwidHlwZSI6IkdpdmVuTmFtZSJ9LHsidmFsdWUiOiJERUNFUlFVRUlSQSIsInR5cGUiOiJGYW1pbHlOYW1lIn1dfV0sImJpcnRoRGF0ZSI6W3sidmFsdWUiOiIxOTY1LTA3LTA4In1dfX0sInZ0bSI6Imh0dHBzOi8vb2lkYy5pbnRlZ3JhdGlvbi5hY2NvdW50Lmdvdi51ay90cnVzdG1hcmsifQ.kNlpaqGkI22lPTWIl0WlawMZvgh8y-6M31I8pf3-xbTyO0IceIf4WDqAWEboPuBD5wdf_Ri3CG3b3voG_NrUsA",
+  "https://vocab.account.gov.uk/v1/address": [
+    {
+      "addressCountry": "GB",
+      "uprn": 100120012077,
+      "buildingName": "",
+      "streetName": "HADLEY ROAD",
+      "postalCode": "BA2 5AA",
+      "buildingNumber": "8",
+      "addressLocality": "BATH",
+      "validFrom": "2000-01-01",
+      "subBuildingName": ""
+    }
+  ],
+  "email": "kenneth@gmail.com",
+  "https://vocab.account.gov.uk/v1/returnCode": []
+}

@@ -1,0 +1,22 @@
+{
+  "type": [
+    "VerifiableCredential",
+    "IdentityCheckCredential"
+  ],
+  "credentialSubject": {
+    "name": [
+      {
+        "nameParts": [
+          {
+            "value": "STEPHEN",
+            "type": "GivenName"
+          },
+          {
+            "value": "MOORE MBE",
+            "type": "FamilyName"
+          }
+        ]
+      }
+    ]
+  }
+}

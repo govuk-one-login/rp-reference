@@ -1,0 +1,17 @@
+{
+    "kid": "76e79bfc350137593e5bd992b202e248fc97e7a20988a5d4fbe9a0273e54844e",
+    "alg": "RS256"
+  }.{
+    "sub": "urn:fdc:gov.uk:2022:fjqtAk_WqoRTkXUzXJxCGE0uF73HU2CjCKzlUu17GbU",
+    "scope": [
+      "openid",
+      "email",
+      "phone"
+    ],
+    "iss": "https://oidc.integration.account.gov.uk/",
+    "exp": 1716371570,
+    "iat": 1716371390,
+    "client_id": "f75PnKPBIElr5ceVkV_ERCitbyY",
+    "jti": "f19e0e9b-cfc4-48a6-b9ff-b948210242de",
+    "sid": "rtaQh5797kRoo582IrTC6_fwL3c"
+  }.[Signature]

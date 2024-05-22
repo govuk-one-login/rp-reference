@@ -1,0 +1,27 @@
+{
+  "type": [
+    "VerifiableCredential",
+    "IdentityCheckCredential"
+  ],
+  "credentialSubject": {
+    "name": [
+      {
+        "nameParts": [
+          {
+            "value": "CHLOE",
+            "type": "GivenName"
+          },
+          {
+            "value": "SMITH",
+            "type": "FamilyName"
+          }
+        ]
+      }
+    ],
+    "birthDate": [
+      {
+        "value": "1967-09-20"
+      }
+    ]
+  }
+}
