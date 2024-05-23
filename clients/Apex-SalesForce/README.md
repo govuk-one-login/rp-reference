@@ -17,7 +17,7 @@ The example authentication provider extends the [`Auth.AuthProviderPluginClass`]
 - Initiates authentication with GOV.UK One Login [`/authorize`](https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#make-a-request-to-the-authorize-endpoint)
 - Handles callback from GOV.UK One Login
 - Retrieves claims from the [`/userinfo`](https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#retrieve-user-information) endpoint after successful authentication
-- **TODO??** Logs out using the`/logout` 
+- **TODO??** Log out using the`/logout` 
 
 ## How to use the example
 
@@ -93,6 +93,10 @@ Ensure that the necessary custom metadata types are set up correctly (`Jwtflowex
 ![](images/image04.png)
 
 ![](images/image05.png)
+
+
+----
+# Notes
 
 ## Custom Exceptions
 - `RegPluginException`: Exception thrown for registration plugin errors.
