@@ -1,0 +1,37 @@
+{
+  "sub": "urn:fdc:gov.uk:2022:HEcB2lCfNGeugPRE6PdFpLNbRq6qBUVWDmK7odnvt0w",
+  "aud": "FufSNYayAyO7n8b0407ZqGZFzR8",
+  "nbf": 1716391627,
+  "iss": "https://identity.integration.account.gov.uk/",
+  "vot": "P2",
+  "exp": 1716393427,
+  "iat": 1716391627,
+  "vc": {
+    "type": [
+      "VerifiableCredential",
+      "IdentityCheckCredential"
+    ],
+    "credentialSubject": {
+      "name": [
+        {
+          "nameParts": [
+            {
+              "value": "KENNETH",
+              "type": "GivenName"
+            },
+            {
+              "value": "DECERQUEIRA",
+              "type": "FamilyName"
+            }
+          ]
+        }
+      ],
+      "birthDate": [
+        {
+          "value": "1965-07-08"
+        }
+      ]
+    }
+  },
+  "vtm": "https://oidc.integration.account.gov.uk/trustmark"
+}

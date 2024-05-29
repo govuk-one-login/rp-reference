@@ -1,0 +1,29 @@
+{
+    "sub": "urn:fdc:gov.uk:2022:FKRxm9M9jv6diEojNWQn8LAsC8wLVXPG78uTfhgf--4",
+    "https://vocab.account.gov.uk/v1/passport": [
+      {
+        "expiryDate": "2030-01-01",
+        "icaoIssuerCode": "GBR",
+        "documentNumber": "767543765"
+      }
+    ],
+    "email_verified": true,
+    "phone_number_verified": true,
+    "phone_number": "+447777123456",
+    "https://vocab.account.gov.uk/v1/coreIdentityJWT": "eyJraWQiOiJpbnRlZ3JhdGlvbi5pZGVudGl0eS5hY2NvdW50Lmdvdi51ayNjOWY4ZGExYzg3NTI1YmI0MTY1MzU4M2MyZDA1Mjc0ZTg1ODA1YWI3ZDBhYmM1ODM3NmM3MTI4MTI5ZGFhOTM2IiwiYWxnIjoiRVMyNTYifQ.eyJzdWIiOiJ1cm46ZmRjOmdvdi51azoyMDIyOkZLUnhtOU05anY2ZGlFb2pOV1FuOExBc0M4d0xWWFBHNzh1VGZoZ2YtLTQiLCJhdWQiOiJGdWZTTllheUF5TzduOGIwNDA3WnFHWkZ6UjgiLCJuYmYiOjE3MTYzNzM2MTQsImlzcyI6Imh0dHBzOi8vaWRlbnRpdHkuaW50ZWdyYXRpb24uYWNjb3VudC5nb3YudWsvIiwidm90IjoiUDIiLCJleHAiOjE3MTYzNzU0MTQsImlhdCI6MTcxNjM3MzYxNCwidmMiOnsidHlwZSI6WyJWZXJpZmlhYmxlQ3JlZGVudGlhbCIsIklkZW50aXR5Q2hlY2tDcmVkZW50aWFsIl0sImNyZWRlbnRpYWxTdWJqZWN0Ijp7Im5hbWUiOlt7Im5hbWVQYXJ0cyI6W3sidmFsdWUiOiJMSVNBIiwidHlwZSI6IkdpdmVuTmFtZSJ9LHsidmFsdWUiOiJTIiwidHlwZSI6IkdpdmVuTmFtZSJ9LHsidmFsdWUiOiJDIiwidHlwZSI6IkdpdmVuTmFtZSJ9LHsidmFsdWUiOiJMT09TRUxFWSIsInR5cGUiOiJGYW1pbHlOYW1lIn1dfV0sImJpcnRoRGF0ZSI6W3sidmFsdWUiOiIxOTczLTAzLTE0In1dfX0sInZ0bSI6Imh0dHBzOi8vb2lkYy5pbnRlZ3JhdGlvbi5hY2NvdW50Lmdvdi51ay90cnVzdG1hcmsifQ.uX0XU2wtlnvQterKwDGcRMR8poX3X7U0T18G_83xdVI2QYVkJyJQrVv9ETT0nTqJ41haZqD_Gm_XuHaUiEwzrw",
+    "https://vocab.account.gov.uk/v1/address": [
+      {
+        "addressCountry": "GB",
+        "uprn": 90094086,
+        "buildingName": "",
+        "streetName": "IVANHOE STREET",
+        "postalCode": "DY2 0YA",
+        "buildingNumber": "34",
+        "addressLocality": "DUDLEY",
+        "validFrom": "2000-01-01",
+        "subBuildingName": ""
+      }
+    ],
+    "email": "lisa@gmail.com",
+    "https://vocab.account.gov.uk/v1/returnCode": []
+  }

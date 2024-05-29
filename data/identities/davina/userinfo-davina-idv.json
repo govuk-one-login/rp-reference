@@ -1,0 +1,29 @@
+{
+    "sub": "urn:fdc:gov.uk:2022:FuzGEK2tRHNLa5Pq_q2l7YxReQhB1ySvB_Y58dBODRo",
+    "https://vocab.account.gov.uk/v1/passport": [
+      {
+        "expiryDate": "2030-01-01",
+        "icaoIssuerCode": "GBR",
+        "documentNumber": "234876987"
+      }
+    ],
+    "email_verified": true,
+    "phone_number_verified": true,
+    "phone_number": "+447777123456",
+    "https://vocab.account.gov.uk/v1/coreIdentityJWT": "eyJraWQiOiJpbnRlZ3JhdGlvbi5pZGVudGl0eS5hY2NvdW50Lmdvdi51ayNjOWY4ZGExYzg3NTI1YmI0MTY1MzU4M2MyZDA1Mjc0ZTg1ODA1YWI3ZDBhYmM1ODM3NmM3MTI4MTI5ZGFhOTM2IiwiYWxnIjoiRVMyNTYifQ.eyJzdWIiOiJ1cm46ZmRjOmdvdi51azoyMDIyOkZ1ekdFSzJ0UkhOTGE1UHFfcTJsN1l4UmVRaEIxeVN2Ql9ZNThkQk9EUm8iLCJhdWQiOiJGdWZTTllheUF5TzduOGIwNDA3WnFHWkZ6UjgiLCJuYmYiOjE3MTYzNzQ3ODEsImlzcyI6Imh0dHBzOi8vaWRlbnRpdHkuaW50ZWdyYXRpb24uYWNjb3VudC5nb3YudWsvIiwidm90IjoiUDIiLCJleHAiOjE3MTYzNzY1ODEsImlhdCI6MTcxNjM3NDc4MSwidmMiOnsidHlwZSI6WyJWZXJpZmlhYmxlQ3JlZGVudGlhbCIsIklkZW50aXR5Q2hlY2tDcmVkZW50aWFsIl0sImNyZWRlbnRpYWxTdWJqZWN0Ijp7Im5hbWUiOlt7Im5hbWVQYXJ0cyI6W3sidmFsdWUiOiJEQVZJTkEiLCJ0eXBlIjoiR2l2ZW5OYW1lIn0seyJ2YWx1ZSI6Ik5JR0VMIiwidHlwZSI6IkdpdmVuTmFtZSJ9LHsidmFsdWUiOiJEVU5DQU4iLCJ0eXBlIjoiR2l2ZW5OYW1lIn0seyJ2YWx1ZSI6IlRVTk5JQ0xJRkZFIiwidHlwZSI6IkZhbWlseU5hbWUifV19XSwiYmlydGhEYXRlIjpbeyJ2YWx1ZSI6IjE5NjUtMDMtMDEifV19fSwidnRtIjoiaHR0cHM6Ly9vaWRjLmludGVncmF0aW9uLmFjY291bnQuZ292LnVrL3RydXN0bWFyayJ9.FB6sS9P0W1WskkcNdMerEjU8Y_48pt1yB3HGYMV3PKcU_gobQXOWmARnia9vmxON4S7rlpsoCaydgB2ThVi3rQ",
+    "https://vocab.account.gov.uk/v1/address": [
+      {
+        "addressCountry": "GB",
+        "uprn": 906361461,
+        "buildingName": "5/13",
+        "streetName": "SOUTH COLLEGE STREET",
+        "postalCode": "EH8 9AA",
+        "buildingNumber": "",
+        "addressLocality": "EDINBURGH",
+        "validFrom": "2000-01-01",
+        "subBuildingName": ""
+      }
+    ],
+    "email": "davina@gmail.com",
+    "https://vocab.account.gov.uk/v1/returnCode": []
+  }
