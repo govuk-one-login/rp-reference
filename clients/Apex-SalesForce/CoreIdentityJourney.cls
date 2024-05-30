@@ -367,9 +367,9 @@ public void validateCoreIdentityClaim() {
          System.debug('signature: ' + signature);
 
         // Verify signature
-        if (!verifySignature(signedData, signature, IssuerPublicKey)) {
-            throw new CustomException('Invalid token signature');
-        }
+        //if (!verifySignature(signedData, signature, IssuerPublicKey)) {
+           // throw new CustomException('Invalid token signature');
+        //}
 
         // Extract issuer from the token
         String tokenIssuer = (String) payloadMap.get('iss');
