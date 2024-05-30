@@ -12,10 +12,7 @@ global class COREIdentityJWTGovUK extends Auth.AuthProviderPluginClass {
     public class CustomException extends Exception {}
     public class JWTDecodeException extends Exception {}
     
-    // Declare a global variable to store user information
-    //private Map<String, Object> userInfo;
-    
-    
+   
     // Declare global variable to hold access token
     private String accessToken;
     private String CoreIdentityClaimIssuer = 'https://identity.integration.account.gov.uk/';
@@ -109,12 +106,6 @@ global PageReference initiate(Map<String, String> authProviderConfiguration, Str
         accessToken = getTokenValueFromResponse(responseBody, 'access_token', false);
         
         system.debug('accessTokentoday:' + accessToken); 
-        
-        //userInfo = CoreIdentityUserInfo(authProviderConfiguration, accessToken);
-        
-        
-        // Extract Core Identity claim from userinfo response
-        //String coreIdentityClaim = extractCoreIdentityClaim();
     
        
         return new Auth.AuthProviderTokenResponse('OneLogin', null, accessToken, sfdcState);
@@ -225,10 +216,10 @@ global PageReference initiate(Map<String, String> authProviderConfiguration, Str
          System.debug('Error decoding JWT: ' + e.getMessage());
         }
         
-         //validateCoreIdentityClaim();
+         validateCoreIdentityClaim();
         return new Auth.UserData(userId, givenName, familyName, fullName, email, null, birthDate, null, 'OneLogin', null, null);
         
-        //validateCoreIdentityClaim();
+        
     }
 
     
@@ -355,9 +346,7 @@ public String getTokenValueFromResponse(String response, String key, Boolean isA
 }
     
 public void validateCoreIdentityClaim() {
-    // Decode the issuer public key from Base64
-    Blob issuerPublicKeyBlob = EncodingUtil.base64Decode(IssuerPublicKey);
-    String issuerPublicKey = EncodingUtil.base64Encode(issuerPublicKeyBlob);
+   
     String algorithmName = 'SHA256withECDSA'; // ES256 algorithm
 
     try {
@@ -369,15 +358,16 @@ public void validateCoreIdentityClaim() {
         // Convert base64url encoded parts to standard Base64 encoding
         String decodedHeader = Newbase64UrlToBase64(parts[0]);
         String decodedPayload = Newbase64UrlToBase64(parts[1]);
+        System.debug('decodedHeader: ' + decodedHeader);
+        System.debug('decodedPayload: ' + decodedPayload);
 
         Blob signedData = Blob.valueOf(decodedHeader + '.' + decodedPayload);
+        Blob signature = EncodingUtil.base64Decode(Newbase64UrlToBase64(parts[2]));
         
-        
-        
-        Blob signature = EncodingUtil.base64Decode(parts[2]);
+         System.debug('signature: ' + signature);
 
         // Verify signature
-        if (!verifySignature(signedData, signature, issuerPublicKey)) {
+        if (!verifySignature(signedData, signature, IssuerPublicKey)) {
             throw new CustomException('Invalid token signature');
         }
 
@@ -428,13 +418,13 @@ public void validateCoreIdentityClaim() {
         throw new CustomException('Error validating JWT token: ' + e.getMessage());
     }
 }
-    
-private String Newbase64UrlToBase64(String input) {
-    // Replace '-' with '+', '_' with '/', and remove any other non-base64url characters
-    String result = input.replaceAll('-', '+').replaceAll('_', '/').replaceAll('[^A-Za-z0-9+/=]', '');
 
+private String Newbase64UrlToBase64(String input) {
+    // Replace '-' with '+', '_' with '/', and calculate the correct padding
+    String result = input.replace('-', '+').replace('_', '/');
+    
     // Calculate the number of padding characters needed
-    Integer paddingNeeded = 4 - Math.mod(result.length(), 4);
+    Integer paddingNeeded = Math.mod(result.length(), 4);
     if (paddingNeeded == 2) {
         result += '=='; // Add two padding characters
     } else if (paddingNeeded == 3) {
@@ -444,21 +434,30 @@ private String Newbase64UrlToBase64(String input) {
     return result;
 }
 
-
-
-
+//Method to verify ES256 algo
 private Boolean verifySignature(Blob signedData, Blob signature, String publicKeyStr) {
-    // Convert the PEM public key string to X.509 format
-    String publicKeyPEM = '-----BEGIN PUBLIC KEY-----\n' + publicKeyStr + '\n-----END PUBLIC KEY-----';
-    String base64PublicKey = publicKeyPEM.substringAfter('-----BEGIN PUBLIC KEY-----').substringBefore('-----END PUBLIC KEY-----').replaceAll('\n', '').trim();
-    Blob publicKeyX509 = EncodingUtil.base64Decode(base64PublicKey);
-
     try {
+        // Include PEM headers for the public key
+        String publicKeyPEM = '-----BEGIN PUBLIC KEY-----\n' + publicKeyStr + '\n-----END PUBLIC KEY-----';
+        
+        // Remove PEM headers and newline characters from the public key string
+        publicKeyPEM = publicKeyPEM.replaceAll('-----BEGIN PUBLIC KEY-----', '');
+        publicKeyPEM = publicKeyPEM.replaceAll('-----END PUBLIC KEY-----', '');
+        publicKeyPEM = publicKeyPEM.replaceAll('\\n', '');
+
+        // Decode the PEM-formatted public key from Base64
+        Blob publicKeyDER = EncodingUtil.base64Decode(publicKeyPEM);
+        //Blob publicKeyX509 = EncodingUtil.base64Decode(publicKeyPEM);
+        //String publicKeyBase64 = EncodingUtil.base64Encode(publicKeyX509);
+        //Blob publicKeyX5092 = EncodingUtil.base64Decode(publicKeyBase64);
+        //System.debug('publicKeyX509: ' + publicKeyX509);
+
         // Verify the signature using ES256 algorithm
-        return Crypto.verify('SHA256withECDSA', signedData, signature, publicKeyX509);
+        return Crypto.verify('ECDSA', signedData, signature, publicKeyDER);
     } catch (Exception e) {
-        System.debug('Signature verification failed: ' + e.getMessage());
-        return false;
+        // Log the exception
+        System.debug('Error verifying signature: ' + e.getMessage());
+        return false; // Return false indicating signature verification failure
     }
 }
 
@@ -527,8 +526,8 @@ public class BirthDate {
     String result = input.replace('-', '+').replace('_', '/');
     Integer paddingNeeded = 4 - Math.mod(result.length(), 4); // Calculate how many padding characters are needed
     while (paddingNeeded > 0) {
-        result += '='; 
-        paddingNeeded--; 
+        result += '='; // Add padding characters
+        paddingNeeded--; // Decrement paddingNeeded
     }
     return result;
 }
