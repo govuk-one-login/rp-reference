@@ -35,7 +35,7 @@ You must have access to a Salesforce [developer environment](https://developer.s
 - go to "[PLATFORM - TOOLS - Custom Code - Apex Classes](https://gds-c-dev-ed.develop.lightning.force.com/lightning/setup/ApexClasses/home)"
 - select the "[New](https://gds-c-dev-ed.develop.lightning.force.com/lightning/setup/ApexClasses/page?address=%2Fsetup%2Fbuild%2FeditApexClass.apexp%3FretURL%3D%252Fsetup%252Fbuild%252FlistApexClass.apexp%26sfdcIFrameOrigin%3Dhttps%253A%252F%252Fgds-c-dev-ed.develop.lightning.force.com%26clc%3D1)" button to add an Apex class and paste in the source code from the clipboard, select the "Save" button.
 
-### 3. Configure a custom metadata type
+### 2. Configure a custom metadata type
 
 The configuration parameters for the authentication provider are defined using a [Salesforce Custom MetaData Type](https://help.salesforce.com/s/articleView?id=sf.custommetadatatypes_overview.htm&type=5).
 
@@ -56,7 +56,7 @@ Ensure that the necessary custom metadata type  (`Jwtflowexample__mdt`) is set u
 |`PrivateKeyTest` | textarea | Private key for signing JWT tokens| an RSA private key |
 
 
-### 4. Configure the authentication provider
+### 3. Configure the authentication provider
 
 - browse to [Settings - Identity - Auth. providers](https://gds-c-dev-ed.develop.lightning.force.com/lightning/setup/AuthProviders/home)
 - select the `new` button
@@ -75,7 +75,7 @@ Ensure that the necessary custom metadata type  (`Jwtflowexample__mdt`) is set u
 - On the registration handler field, click on the "Automatically create a registration handler template" link to create the registration handle class on save of the auth provider
 
 
-### 5. Test the integration
+### 4. Test the integration
 
 Browse to https://gds-c-dev-ed.develop.my.salesforce.com/services/auth/test/ONELOGIN 
 
