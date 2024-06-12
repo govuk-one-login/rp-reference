@@ -1,4 +1,4 @@
-global class JWTGovUK extends Auth.AuthProviderPluginClass {
+global class OneLoginPrivateKeyJWT extends Auth.AuthProviderPluginClass {
     
     
     public String redirectUrl;
@@ -21,16 +21,16 @@ global class JWTGovUK extends Auth.AuthProviderPluginClass {
     }
     
     private String base64UrlEncode(Blob input) {
-    // Encode the input Blob into a base64 string
-    String encoded = EncodingUtil.base64Encode(input);
-
-    // Replace characters as per base64url encoding rules
-    encoded = encoded.replace('+', '-');
-    encoded = encoded.replace('/', '_');
-    encoded = encoded.removeEnd('=');
-
-    return encoded;
-}
+        // Encode the input Blob into a base64 string
+        String encoded = EncodingUtil.base64Encode(input);
+    
+        // Replace characters as per base64url encoding rules
+        encoded = encoded.replace('+', '-');
+        encoded = encoded.replace('/', '_');
+        encoded = encoded.removeEnd('=');
+    
+        return encoded;
+    }
 
     
     global PageReference initiate(Map<String, String> authProviderConfiguration, String stateToPropagate) {
@@ -89,7 +89,12 @@ global class JWTGovUK extends Auth.AuthProviderPluginClass {
         system.debug(responseBody);   
 
         accessToken = getTokenValueFromResponse(responseBody, 'access_token', false);
-
+        idToken = getTokenValueFromResponse(responseBody, 'id_token', false);
+        
+        if (!validateIdToken(idToken)) {
+            throw new CustomException('Invalid ID Token received');
+        }
+        
         return new Auth.AuthProviderTokenResponse('OneLogin', null, accessToken, sfdcState);
     }
 
@@ -140,66 +145,58 @@ global class JWTGovUK extends Auth.AuthProviderPluginClass {
         // Construct Auth.UserData object with retrieved information
         return new Auth.UserData(userId, firstName, lastName, fullName, email, null, locale, null, 'OneLogin', null, null);
     }
-
     
- private String generateJWT(String clientId, String privateKey) {
-    // Create a random value for the JWT ID (jti)
-    String jti = generateRandomJti();
-
-    // Create JWT payload (claims)
-    Long iat = DateTime.now().getTime() / 1000; // Current timestamp in seconds
-    Long exp = iat + 3600; // Expiry time: 1 hour from issuance (adjust as needed)
-
-     
-
-    // Construct JWT header
-    Map<String, Object> headerMap = new Map<String, Object>();
-    headerMap.put('alg', 'RS256');
-    headerMap.put('typ', 'JWT');
-    String headerJson = JSON.serialize(headerMap);
-    String header = base64UrlEncode(Blob.valueOf(headerJson));
-    
-    // Construct JWT payload (claims)
-    Map<String, Object> payloadMap = new Map<String, Object>();
-    payloadMap.put('aud', tokenUrl);
-    payloadMap.put('iss', clientId);
-    payloadMap.put('sub', clientId);
-    payloadMap.put('exp', exp); // Expiration timestamp
-    payloadMap.put('iat', iat); // Issued at timestamp
-    payloadMap.put('jti', jti);
-    String payloadJson = JSON.serialize(payloadMap);
-    String payload = base64UrlEncode(Blob.valueOf(payloadJson));
-
-    // Combine header and payload with a dot separator
-    String unsignedToken = header + '.' + payload;
-
-    // Convert the private key from a string to a Blob
-    Blob privateKeyBlob = EncodingUtil.base64Decode(privateKey);
-
-    // Sign the digest using RSA-SHA256 with the private key
-    Blob signatureBlob = Crypto.sign('RSA-SHA256', Blob.valueOf(unsignedToken), privateKeyBlob);
-    String signature = base64UrlEncode(signatureBlob);
-
-    // Combine all parts of the JWT (header, payload, signature) with dot separators
-    String jwtToken = unsignedToken + '.' + signature;
-
-    return jwtToken;
-}
-
-
-
-// Method to generate a random value for the JWT ID (jti)
-private String generateRandomJti() {
-    String chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    String jti = '';
-    Integer length = 16; 
-    while (length-- > 0) {
-        Integer rand = Math.abs(Math.mod(Crypto.getRandomInteger(), chars.length()));
-        jti += chars.charAt(rand);
+    private Boolean validateIdToken(String idToken) {
+        // implement id token validation logic here
+        return true;
     }
-    return jti;
-}
+    private String generateJWT(String clientId, String privateKey) {
+        // Create a random value for the JWT ID (jti)
+        String jti = generateRandomJti();
+    
+        // Create JWT payload (claims)
+        Long iat = DateTime.now().getTime() / 1000; // Current timestamp in seconds
+        Long exp = iat + 3600; // Expiry time: 1 hour from issuance (adjust as needed)
+    
+        // Construct JWT header
+        Map<String, Object> headerMap = new Map<String, Object>();
+        headerMap.put('alg', 'RS256');
+        headerMap.put('typ', 'JWT');
+        String headerJson = JSON.serialize(headerMap);
+        String header = base64UrlEncode(Blob.valueOf(headerJson));
+        
+        // Construct JWT payload (claims)
+        Map<String, Object> payloadMap = new Map<String, Object>();
+        payloadMap.put('aud', tokenUrl);
+        payloadMap.put('iss', clientId);
+        payloadMap.put('sub', clientId);
+        payloadMap.put('exp', exp); // Expiration timestamp
+        payloadMap.put('iat', iat); // Issued at timestamp
+        payloadMap.put('jti', jti);
+        String payloadJson = JSON.serialize(payloadMap);
+        String payload = base64UrlEncode(Blob.valueOf(payloadJson));
+    
+        // Combine header and payload with a dot separator
+        String unsignedToken = header + '.' + payload;
+    
+        // Convert the private key from a string to a Blob
+        Blob privateKeyBlob = EncodingUtil.base64Decode(privateKey);
+    
+        // Sign the digest using RSA-SHA256 with the private key
+        Blob signatureBlob = Crypto.sign('RSA-SHA256', Blob.valueOf(unsignedToken), privateKeyBlob);
+        String signature = base64UrlEncode(signatureBlob);
+    
+        // Combine all parts of the JWT (header, payload, signature) with dot separators
+        String jwtToken = unsignedToken + '.' + signature;
+    
+        return jwtToken;
+    } 
 
+    // Method to generate a random value for the JWT ID (jti)
+    private String generateRandomJti() {
+        UUID randomUUID = UUID.randomUUID();
+        return UUID;
+    }
     
     //Method to generate a random string for nonce
     global String generateNonce() {
@@ -220,49 +217,47 @@ private String generateRandomJti() {
         return nonce;
     }
 
-public String getTokenValueFromResponse(String response, String key, Boolean isArray) {
-    String ret = null;
+    public String getTokenValueFromResponse(String response, String key, Boolean isArray) {
+        String ret = null;
+        
+        try {
+            // Check if the response is null or empty
+            if (String.isBlank(response)) {
+                System.debug('Response is null or empty.');
+                return null;
+            }
     
-    try {
-        // Check if the response is null or empty
-        if (String.isBlank(response)) {
-            System.debug('Response is null or empty.');
-            return null;
-        }
-
-        // Parse the JSON response
-        Map<String, Object> jsonResponse = (Map<String, Object>) JSON.deserializeUntyped(response);
-        System.debug('JSON Response: ' + jsonResponse);
-
-        // Check if the key exists in the response
-        if (jsonResponse.containsKey(key)) {
-            // Retrieve the value for the key
-            Object value = jsonResponse.get(key);
-
-            // Check if the value is an array
-            if (isArray && value instanceof List<Object>) {
-                List<Object> valueList = (List<Object>) value;
-                if (!valueList.isEmpty()) {
-                    // Get the first element of the array
-                    ret = String.valueOf(valueList[0]);
+            // Parse the JSON response
+            Map<String, Object> jsonResponse = (Map<String, Object>) JSON.deserializeUntyped(response);
+            System.debug('JSON Response: ' + jsonResponse);
+    
+            // Check if the key exists in the response
+            if (jsonResponse.containsKey(key)) {
+                // Retrieve the value for the key
+                Object value = jsonResponse.get(key);
+    
+                // Check if the value is an array
+                if (isArray && value instanceof List<Object>) {
+                    List<Object> valueList = (List<Object>) value;
+                    if (!valueList.isEmpty()) {
+                        // Get the first element of the array
+                        ret = String.valueOf(valueList[0]);
+                    } else {
+                        System.debug('Array is empty for key: ' + key);
+                    }
                 } else {
-                    System.debug('Array is empty for key: ' + key);
+                    // Value is not an array or is null
+                    ret = String.valueOf(value);
                 }
             } else {
-                // Value is not an array or is null
-                ret = String.valueOf(value);
+                System.debug('Key "' + key + '" not found in response.');
             }
-        } else {
-            System.debug('Key "' + key + '" not found in response.');
+        } catch (Exception e) {
+            // Handle any exception that may occur during parsing
+            System.debug('Error parsing JSON response: ' + e.getMessage());
         }
-    } catch (Exception e) {
-        // Handle any exception that may occur during parsing
-        System.debug('Error parsing JSON response: ' + e.getMessage());
+    
+        System.debug(key + ': ' + ret);
+        return ret;
     }
-
-    System.debug(key + ': ' + ret);
-    return ret;
-}
-
-
 }
