@@ -71,8 +71,7 @@ global class OneLoginProvider extends Auth.AuthProviderPluginClass {
                                     '&vtr=' + vtr;
               
         if (requestIdentityVerification) {
-            claims = '';
-            url = url + '&claims='
+            url = url + '&claims={"userinfo":{"https://vocab.account.gov.uk/v1/coreIdentityJWT":null,"https://vocab.account.gov.uk/v1/address":null,"https://vocab.account.gov.uk/v1/returnCode":null}}';
         }
 
         return new PageReference(url);
@@ -129,6 +128,7 @@ global class OneLoginProvider extends Auth.AuthProviderPluginClass {
 
         accessToken = getTokenValueFromResponse(responseBody, 'access_token', false);
         idToken = getTokenValueFromResponse(responseBody, 'id_token', false);
+
         return new Auth.AuthProviderTokenResponse('OneLogin', accessToken, idToken, stateReturned);
     }
 
@@ -137,8 +137,13 @@ global class OneLoginProvider extends Auth.AuthProviderPluginClass {
         System.debug('getUserInfo starting');
         
         String userinfoUrl;
+        Boolean requestIdentityVerification;
+
         userinfoUrl = authProviderConfiguration.get('UserinfoUrl__c');
-        
+        System.debug('userinfoUrl=' + userinfoUrl);
+        requestIdentityVerification = Boolean.valueOf(authProviderConfiguration.get('RequestIdentityVerification__c'));
+        System.debug('requestIdentityVerification=' + requestIdentityVerification);   
+       
         String accessToken = response.oauthToken;
         System.debug('accessToken=' + accessToken);
 
@@ -179,10 +184,46 @@ global class OneLoginProvider extends Auth.AuthProviderPluginClass {
         // Extract user information from the response
         String userId = (String) userinfo.get('sub');
         String email = (String) userinfo.get('email');
-        String phone = (String) userinfo.get('phone');
-        
+        String phone = (String) userinfo.get('phone_number');
+
+        String RETURN_CODE_CLAIM = 'https://vocab.account.gov.uk/v1/returnCode';
+        String ADDRESS_CLAIM = 'https://vocab.account.gov.uk/v1/address';
+        String CORE_IDENTITY_CLAIM = 'https://vocab.account.gov.uk/v1/coreIdentityJWT';
+
+        //String returnCodeJson;        
+        Map<String, Object> returnCodeMap;        
+        //String addressJson;
+        Map<String, Object> addressMap;
+        String coreIdentityJWT;
+
+        if (requestIdentityVerification) {
+            //returnCodeJson  = (String) userinfo.get(RETURN_CODE_CLAIM);
+            if (userinfo.containsKey(RETURN_CODE_CLAIM)) {
+                returnCodeMap = (Map<String, Object>) JSON.deserializeUntyped((String) userinfo.get(RETURN_CODE_CLAIM));
+                if (!returnCodeMap.isEmpty()) {
+                    // we have a return code - add return code processing logic here
+                    
+                }
+            }
+            if (userinfo.containsKey(ADDRESS_CLAIM)) {
+                addressMap = (Map<String, Object>) JSON.deserializeUntyped((String) userinfo.get(ADDRESS_CLAIM));
+            }
+            if (userinfo.containsKey(CORE_IDENTITY_CLAIM)) {
+                coreIdentityJWT = (String) userinfo.get(CORE_IDENTITY_CLAIM);
+            }
+        }
         // Construct Auth.UserData object with retrieved information
         return new Auth.UserData(userId, 'FirstName', 'LastName', 'FullName', email, 'link', email, 'Locale', 'OneLogin', 'siteLoginUrl', null);
+    }
+
+    private Boolean validateIdToken() {
+        // implement logic here to validate id token
+        return true;
+    }
+
+    private Boolean validateCoreIdentity() {
+        // implement logic here to validate coreIdentityJWT
+        return true;
     }
 
     private String generateJWT(String clientId, String privateKey, String audience) {
