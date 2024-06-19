@@ -164,7 +164,7 @@ global class OneLoginProvider extends Auth.AuthProviderPluginClass {
         if (res.getStatusCode() != 200) {
             throw new CustomException('HTTP request to userinfo endpoint failed with status code: ' + res.getStatusCode());
         } else {
-            System.debug('Userinfo response:' + res.getBody());
+            System.debug('Userinfo response=' + res.getBody());
         }
         
         // Parse the JSON response
@@ -189,31 +189,38 @@ global class OneLoginProvider extends Auth.AuthProviderPluginClass {
         String RETURN_CODE_CLAIM = 'https://vocab.account.gov.uk/v1/returnCode';
         String ADDRESS_CLAIM = 'https://vocab.account.gov.uk/v1/address';
         String CORE_IDENTITY_CLAIM = 'https://vocab.account.gov.uk/v1/coreIdentityJWT';
-
-        //String returnCodeJson;        
-        Map<String, Object> returnCodeMap;        
-        //String addressJson;
-        Map<String, Object> addressMap;
-        String coreIdentityJWT;
+       
+        List<Object> returnCodes;        
+        String address;
+        Object coreIdentityJWT;
+        Map<String, String> attributeMap = new Map<String, String>();
 
         if (requestIdentityVerification) {
             //returnCodeJson  = (String) userinfo.get(RETURN_CODE_CLAIM);
             if (userinfo.containsKey(RETURN_CODE_CLAIM)) {
-                returnCodeMap = (Map<String, Object>) JSON.deserializeUntyped((String) userinfo.get(RETURN_CODE_CLAIM));
-                if (!returnCodeMap.isEmpty()) {
+                returnCodes = (List<Object>) userinfo.get(RETURN_CODE_CLAIM);
+                if (!returnCodes.isEmpty()) {
                     // we have a return code - add return code processing logic here
-                    
+                    System.debug(returnCodes.toString());
                 }
             }
             if (userinfo.containsKey(ADDRESS_CLAIM)) {
-                addressMap = (Map<String, Object>) JSON.deserializeUntyped((String) userinfo.get(ADDRESS_CLAIM));
+                address = userinfo.get(ADDRESS_CLAIM).toString();
+                System.debug(address);
+                // copy address to attribute map
+                attributeMap.put('address', address);
             }
             if (userinfo.containsKey(CORE_IDENTITY_CLAIM)) {
-                coreIdentityJWT = (String) userinfo.get(CORE_IDENTITY_CLAIM);
+                coreIdentityJWT = (Object) userinfo.get(CORE_IDENTITY_CLAIM);
+                System.debug(coreIdentityJWT.toString());
+                if (validateCoreIdentity(coreIdentityJWT)) {
+                    // copy identity to attribute map
+                    attributeMap.put('coreIdentity', coreIdentityJWT.toString());
+                }
             }
         }
         // Construct Auth.UserData object with retrieved information
-        return new Auth.UserData(userId, 'FirstName', 'LastName', 'FullName', email, 'link', email, 'Locale', 'OneLogin', 'siteLoginUrl', null);
+        return new Auth.UserData(userId, 'FirstName', 'LastName', 'FullName', email, 'link', email, 'Locale', 'OneLogin', 'siteLoginUrl', attributeMap);
     }
 
     private Boolean validateIdToken() {
@@ -221,7 +228,7 @@ global class OneLoginProvider extends Auth.AuthProviderPluginClass {
         return true;
     }
 
-    private Boolean validateCoreIdentity() {
+    private Boolean validateCoreIdentity(Object coreIdentityJWT) {
         // implement logic here to validate coreIdentityJWT
         return true;
     }
