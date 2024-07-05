@@ -31,11 +31,11 @@ Example addresses:
 
 
 Example identities:
-- [atinuke](atinuke)
-- [davina](davina)
-- [julie](jilie)
-- [kenneth](kenneth)
-- [lisa](lisa)
+- [atinuke](identities/atinuke)
+- [davina](identities/davina)
+- [julie](identities/jilie)
+- [kenneth](identities/kenneth)
+- [lisa](identities/lisa)
 
 
 
