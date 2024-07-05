@@ -13,6 +13,13 @@ Examples [eg1.json](addresses/eg1.json) to [eg4.json](addresses/eg4.json)  conta
 
 Read the technical documentation [understand your user’s address claim](https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/prove-users-identity/#understand-your-user-s-address-claim) to understand the individual properties.
 
+Example addresses:
+- [eg1.json](addresses/eg1.json)
+- [eg2.json](addresses/eg2.json)
+- [eg3.json](addresses/eg3.json)
+- [eg4.json](addresses/eg4.json)
+- [eg5.json](addresses/eg5.json)
+
 
 ## Identities
 
@@ -23,12 +30,12 @@ Read the technical documentation [understand your user’s address claim](https:
 `coreIdentity-{NAME}.json` contains the the decoded version of the JWT in the `.”https://vocab.account.gov.uk/v1/coreIdentityJWT ”` property
 
 
-See the example identities:
-[atinuke](atinuke
-[davina](davina)
-[julie](jilie)
-[kenneth](kenneth)
-[lisa](lisa)
+Example identities:
+- [atinuke](atinuke)
+- [davina](davina)
+- [julie](jilie)
+- [kenneth](kenneth)
+- [lisa](lisa)
 
 
 
@@ -36,25 +43,25 @@ See the example identities:
 
 Read the technical documentation [understand your user’s name details in the credentialSubject claim](https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/prove-users-identity/#understand-your-user-s-core-identity-claim) to understand the individual properties.
 
-
- - [ex01 single given name and single family name](ex01-single-given-name-and-single-family-name.json)
- - [ex02 multiple given names and a single family name](ex02-multiple-given-names-and-a-single-family-name.json)
- - [ex03 single given name and multiple family name words](ex03-single-given-name-and-multiple-family-name-words.json)
- - [ex04a given name with hyphen in the viz section](ex04a-given-name-with-hyphen-in-the-viz-section.json)
- - [ex04b given name with hyphen replaced by space in the mrz](ex04b-given-name-with-hyphen-replaced-by-space-in-the-mrz.json)
- - [ex05a names with apostrophe in the family name in the viz section](ex05a-names-with-apostrophe-in-the-family-name-in-the-viz-section.json)
- - [ex05b names with apostrophe in the family name in the viz section and replace with space in mrz](ex05b-names-with-apostrophe-in-the-family-name-in-the-viz-section-and-replace-with-space-in-mrz.json)
- - [ex06a names with hyphen in the family name in the viz section](ex06a-names-with-hyphen-in-the-family-name-in-the-viz-section.json)
- - [ex06b names with hyphen in the family name on the viz section and hyphen removed in mrz](ex06b-names-with-hyphen-in-the-family-name-on-the-viz-section-and-hyphen-removed-in-mrz.json)
- - [ex09 name with truncated given name and acceptable family name](ex09-name-with-truncated-given-name-and-acceptable-family-name.json)
- - [ex10 name with truncated given name and truncated family name](ex10-name-with-truncated-given-name-and-truncated-family-name.json)
- - [ex11 name with truncated family name and acceptable given name](ex11-name-with-truncated-family-name-and-acceptable-given-name.json)
- - [ex12 names with diacritics in the viz section](ex12-names-with-diacritics-in-the-viz-section.json)
- - [ex13 names with titles in the mrz](ex13-names-with-titles-in-the-mrz.json)
- - [ex14 names with post nominals in the mrz](ex14-names-with-post-nominals-in-the-mrz.json)
- - [ex15 names with jnr or junior in the name](ex15-names-with-jnr-or-junior-in-the-name.json)
- - [ex16 names with generation marking](ex16-names-with-generation-marking.json)
- - [ex17 names with initials as part of the name](ex17-names-with-initials-as-part-of-the-name.json)
+Example names:
+ - [ex01 single given name and single family name](names/ex01-single-given-name-and-single-family-name.json)
+ - [ex02 multiple given names and a single family name](names/ex02-multiple-given-names-and-a-single-family-name.json)
+ - [ex03 single given name and multiple family name words](names/ex03-single-given-name-and-multiple-family-name-words.json)
+ - [ex04a given name with hyphen in the viz section](names/ex04a-given-name-with-hyphen-in-the-viz-section.json)
+ - [ex04b given name with hyphen replaced by space in the mrz](names/ex04b-given-name-with-hyphen-replaced-by-space-in-the-mrz.json)
+ - [ex05a names with apostrophe in the family name in the viz section](names/ex05a-names-with-apostrophe-in-the-family-name-in-the-viz-section.json)
+ - [ex05b names with apostrophe in the family name in the viz section and replace with space in mrz](names/ex05b-names-with-apostrophe-in-the-family-name-in-the-viz-section-and-replace-with-space-in-mrz.json)
+ - [ex06a names with hyphen in the family name in the viz section](names/ex06a-names-with-hyphen-in-the-family-name-in-the-viz-section.json)
+ - [ex06b names with hyphen in the family name on the viz section and hyphen removed in mrz](names/ex06b-names-with-hyphen-in-the-family-name-on-the-viz-section-and-hyphen-removed-in-mrz.json)
+ - [ex09 name with truncated given name and acceptable family name](names/ex09-name-with-truncated-given-name-and-acceptable-family-name.json)
+ - [ex10 name with truncated given name and truncated family name](names/ex10-name-with-truncated-given-name-and-truncated-family-name.json)
+ - [ex11 name with truncated family name and acceptable given name](names/ex11-name-with-truncated-family-name-and-acceptable-given-name.json)
+ - [ex12 names with diacritics in the viz section](names/ex12-names-with-diacritics-in-the-viz-section.json)
+ - [ex13 names with titles in the mrz](names/ex13-names-with-titles-in-the-mrz.json)
+ - [ex14 names with post nominals in the mrz](names/ex14-names-with-post-nominals-in-the-mrz.json)
+ - [ex15 names with jnr or junior in the name](names/ex15-names-with-jnr-or-junior-in-the-name.json)
+ - [ex16 names with generation marking](names/ex16-names-with-generation-marking.json)
+ - [ex17 names with initials as part of the name](names/ex17-names-with-initials-as-part-of-the-name.json)
 
 
 
