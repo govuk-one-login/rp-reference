@@ -25,9 +25,11 @@ Example addresses:
 
 [example identities](identities) contains a set of examples showing the identity information returned from the [`/userinfo`](https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#retrieve-user-information) endpoint
 
-`userinfo-{NAME}-auth.json` the information from the [`/userinfo` endpoint for an authentication only journey](https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#receive-response-for-retrieve-user-information)
-`userinfo-{NAME}-idv.json` the information from the [`/userinfo` endpoint](https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/prove-users-identity/#prove-your-user-39-s-identity) for an identity journey
-`coreIdentity-{NAME}.json` contains the the decoded version of the JWT in the `.”https://vocab.account.gov.uk/v1/coreIdentityJWT ”` property
+|file|description|
+|----|-----------|
+|`userinfo-{NAME}-auth.json` | the information from the [`/userinfo` endpoint for an authentication only journey](https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#receive-response-for-retrieve-user-information)|
+|`userinfo-{NAME}-idv.json` | the information from the [`/userinfo` endpoint](https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/prove-users-identity/#prove-your-user-39-s-identity) for an identity journey|
+| `coreIdentity-{NAME}.json`| contains the the decoded version of the JWT in the `.”https://vocab.account.gov.uk/v1/coreIdentityJWT ”` property|
 
 
 Example identities:
