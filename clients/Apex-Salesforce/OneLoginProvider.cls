@@ -2,7 +2,8 @@ global class OneLoginProvider extends Auth.AuthProviderPluginClass {
 
     public class RegPluginException extends Exception {}
     public class CustomException extends Exception {}
-    
+    public class JWTVerificationException extends Exception {}
+
     // Declare global variable to hold tokens
     static String accessToken;
     static String idToken;
@@ -223,9 +224,77 @@ global class OneLoginProvider extends Auth.AuthProviderPluginClass {
         return new Auth.UserData(userId, 'FirstName', 'LastName', 'FullName', email, 'link', email, 'Locale', 'OneLogin', 'siteLoginUrl', attributeMap);
     }
 
-    private Boolean validateIdToken() {
-        // implement logic here to validate id token
+    private Boolean validateIdToken(String idToken, String publicKey) {
+
+        try {
+            // Split the JWT into header, payload, and signature
+            List<String> tokenParts = idToken.split('\\.');
+            if (tokenParts.size() != 3) {
+                throw new JWTVerificationException('Invalid token format');
+            }
+            
+            String header = tokenParts[0];
+            String payload = tokenParts[1];
+            String signature = tokenParts[2];
+
+            // Base64 decode the header and payload
+            String decodedHeader = EncodingUtil.urlDecode(header, 'UTF-8');
+            String decodedPayload = EncodingUtil.urlDecode(payload, 'UTF-8');
+
+            // Create the data to verify (header + "." + payload)
+            String dataToVerify = header + '.' + payload;
+
+            // Verify the signature using ES256
+            if (!verifySignature(dataToVerify, signature, publicKey)) {
+                throw new JWTVerificationException('Signature verification failed');
+            }
+
+            // Deserialize the payload to a map
+            Map<String, Object> claims = (Map<String, Object>) JSON.deserializeUntyped(EncodingUtil.base64Decode(payload).toString());
+
+            // Validate the claims (e.g., iss, exp, aud)
+            if (!validateClaims(claims)) {
+                throw new JWTVerificationException('Claim validation failed');
+            }
+
+            return true;
+        } catch (Exception e) {
+            System.debug('JWT verification failed: ' + e.getMessage());
+            return false;
+        }
+    }
+    
+    private static Boolean verifySignature(String data, String signature, String publicKey) {
+        // Implement the ES256 signature verification
+        // Note: Salesforce does not have built-in support for ES256, so you will need to use a library or service that supports ES256 verification.
+        // For the purpose of this example, we will assume you have a method `verifyES256Signature` that performs this verification.
+
+        // Decode the signature
+        Blob decodedSignature = EncodingUtil.base64Decode(signature);
+
+        // Call the external method/library to verify the signature
+        return verifyES256Signature(data, decodedSignature, publicKey);
+    }
+    
+    private static Boolean validateClaims(Map<String, Object> claims) {
+        // Validate the issuer (iss), audience (aud), expiration (exp), etc.
+        // Example: Validate the expiration time
+        Long exp = (Long) claims.get('exp');
+        if (exp == null || exp < (DateTime.now().getTime() / 1000)) {
+            return false;
+        }
+
+        // Add additional claim validations as needed
         return true;
+    }
+    
+    private static Boolean verifyES256Signature(String data, Blob signature, String publicKey) {
+        // Placeholder for actual ES256 signature verification logic
+        // Implement this using an appropriate library or service
+        // For example, you could use a third-party library or call an external service to verify the signature
+
+        // This example does not include the actual ES256 verification implementation
+        throw new JWTVerificationException('ES256 verification not implemented');
     }
 
     private Boolean validateCoreIdentity(Object coreIdentityJWT) {
