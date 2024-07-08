@@ -168,7 +168,7 @@ global class OneLoginProvider extends Auth.AuthProviderPluginClass {
             System.debug('Userinfo response=' + res.getBody());
         }
         
-        // Parse the JSON response
+        // Parse the JSON response here
         Map<String, Object> userinfo;
         try {
             userinfo = (Map<String, Object>) JSON.deserializeUntyped(res.getBody());
