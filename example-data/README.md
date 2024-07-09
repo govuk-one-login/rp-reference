@@ -9,7 +9,7 @@ These examples are synthetic and have no relation to the [test user profiles](ht
 
 [example addresses](addresses) contains a set of example JSON fragments containing one or more addresses in an array. 
 
-Examples [eg1.json](addresses/eg1.json) to [eg4.json](addresses/eg4.json)  contain a single address each, [eg5.json](addresses/eg5.json) contains two addresses in an array.
+Examples [eg1.json](addresses/eg1.json) to [eg4.json](addresses/eg4.json) contain a single address each, [eg5.json](addresses/eg5.json) contains two addresses in an array.
 
 Read the technical documentation [understand your user’s address claim](https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/prove-users-identity/#understand-your-user-s-address-claim) to understand the individual properties.
 
@@ -29,16 +29,14 @@ Example addresses:
 |----|-----------|
 |`userinfo-{NAME}-auth.json` | the information from the [`/userinfo` endpoint for an authentication only journey](https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#receive-response-for-retrieve-user-information)|
 |`userinfo-{NAME}-idv.json` | the information from the [`/userinfo` endpoint](https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/prove-users-identity/#prove-your-user-39-s-identity) for an identity journey|
-| `coreIdentity-{NAME}.json`| contains the the decoded version of the JWT in the `.”https://vocab.account.gov.uk/v1/coreIdentityJWT ”` property|
-
+| `coreIdentity-{NAME}.json`| contains the the decoded version of the JWT in the `.”https://vocab.account.gov.uk/v1/coreIdentityJWT”` claim for an identity journey|
 
 Example identities:
 - [atinuke](identities/atinuke)
 - [davina](identities/davina)
-- [julie](identities/jilie)
+- [julie](identities/julie)
 - [kenneth](identities/kenneth)
 - [lisa](identities/lisa)
-
 
 
 ## Names
@@ -64,6 +62,3 @@ Example names:
  - [ex15 names with jnr or junior in the name](names/ex15-names-with-jnr-or-junior-in-the-name.json)
  - [ex16 names with generation marking](names/ex16-names-with-generation-marking.json)
  - [ex17 names with initials as part of the name](names/ex17-names-with-initials-as-part-of-the-name.json)
-
-
-
