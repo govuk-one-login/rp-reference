@@ -20,7 +20,7 @@
 - Retrieves identity public signing key from DID endpoint
 - **TODO** Log out using the`/logout` endpoint
 
-> NB. this sample is not production ready code. It has not been thorouyghly tested and should be used as a guide only. There is very little error handling implemented. MOst errors will cause a fatal error in the AuthProviderPluginClass.
+> NB. this sample is not production ready code. It has not been thoroughly tested and should be used as a guide only. There is very little error handling implemented. Most errors will cause a fatal error in the AuthProviderPluginClass.
 
 ## Before you start\
 
@@ -32,7 +32,7 @@ You must have access to a Salesforce [developer environment](https://developer.s
 
 ### 1. Add the  GOV.UK One Login example authentication provider for `OneLoginProvider`
 
-Navigate to PLATFORM - TOOLS - Custom Code - Apex Classes in the Salesforce developer console.
+Navigate to `PLATFORM - TOOLS - Custom Code - Apex Classes` in the Salesforce developer console.
 
 Browse to the [`Apex-SalesForce`](https://raw.githubusercontent.com/govuk-one-login/rp-reference/main/clients/Apex-SalesForce/) source code.
 
@@ -44,10 +44,10 @@ For each class do the following:
 
 The configuration parameters for the authentication provider are defined using a [Salesforce Custom MetaData Type](https://help.salesforce.com/s/articleView?id=sf.custommetadatatypes_overview.htm&type=5).
 
-- browse to go to PLATFORM - TOOLS - Custom Code - Custom Metadata Types
+- browse to go to `PLATFORM - TOOLS - Custom Code - Custom Metadata Types`
 - select the New Custom Metadata Type button
 - the custom meta data type holds the configuration data for the custom authentication provider
-- the name of the custom meta data type API name `OneLoginClientConfiguration__mdt` is referenced in the OneLoginProvider.cls code sample
+- the name of the custom meta data type API name `OneLoginClientConfiguration__mdt` is referenced in the `OneLoginProvider.cls` code sample
 - add the custom fields detailed below
   
 |name | type |desc|value|
@@ -64,7 +64,7 @@ The configuration parameters for the authentication provider are defined using a
 
 ### 3. Configure the authentication provider
 
-- browse to Settings - Identity - Auth. providers
+- browse to `Settings - Identity - Auth. providers`
 - select the `New` button
 - Select provider type of `OneLoginProvider` from the provider type dropdown. This is the name of the custom `AuthProviderPluginClass`.
 - enter OneLogin for the name
@@ -86,16 +86,16 @@ The configuration parameters for the authentication provider are defined using a
 ### 4. Configure Remote Site Settings
 
 - by default Salesforce will not allow contact to external websites
-- you need to add the GOV.UK One Login URLs to the Remote Site list: Setup->Security->Remote site settings
+- you need to add the GOV.UK One Login URLs to the Remote Site list: `Setup -> Security -> Remote site settings`
   - OneLoginIntegration = `https://oidc.integration.account.gov.uk`
   - IntegrationIdentityKeyEndpoint = `https://identity.integration.account.gov.uk`
 
 ### 5. Create a Platform cache partition
 
-- browse to go to PLATFORM - TOOLS - Custom Code - Platform Cache
+- browse to go to `PLATFORM - TOOLS - Custom Code - Platform Cache`
 - click New Partition Cache Partition
 - enter default for label, click Save
 
 ### 5. Test the integration
 
-Browse to []https://{placeholder-dev-ed}.develop.my.salesforce.com/services/auth/test/ONELOGIN
+Browse to `https://{placeholder-dev-ed}.develop.my.salesforce.com/services/auth/test/ONELOGIN`
