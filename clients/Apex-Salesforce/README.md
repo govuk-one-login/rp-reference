@@ -1,6 +1,8 @@
 # GOV.UK One Login example Salesforce authentication provider
 
-> This is provided as a reference only and doesn't represent production quality code. It does not contain all the necessary error handing, tests etc that are required by production quality code.
+> This is provided as a reference only and doesn't represent production ready code. It does not contain all the necessary error handing (none in fact). Runtime and validation errors will cause a fatal error in the AuthProviderPluginClass. Secret and key management has not been implemented. 
+
+It has not been thoroughly tested and should be used as a guide only.
 
 ## Overview
 
@@ -10,21 +12,20 @@
 
 ## Features
 
-- Optionally supports identity verification
-- Uses the `private_key_jwt` token authentication method with a RSA private key
-- Makes a request to the [`/authorize`](https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#make-a-request-to-the-authorize-endpoint) endpoint to get an authorisation code
-- Exchanges the authorisation code for id and access tokens using the [`/token`](https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#make-a-token-request) endpoint
-- Retrieves claims from the [`/userinfo`](https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#retrieve-user-information) endpoint using the access token
-- Validates the id-token signature and claims
-- Validates the coreIdentityJWT signtaure and claims
-- Retrieves identity public signing key from DID endpoint
-- **TODO** Log out using the`/logout` endpoint
-
-> NB. this sample is not production ready code. It has not been thorouyghly tested and should be used as a guide only. There is very little error handling implemented. MOst errors will cause a fatal error in the AuthProviderPluginClass.
+- optionally supports identity verification requests
+- the sample is hard coded to request the `https://vocab.account.gov.uk/v1/coreIdentityJWT`, `https://vocab.account.gov.uk/v1/address` and `https://vocab.account.gov.uk/v1/returnCode` claims see [Choose which calims your service can request](https://docs.sign-in.service.gov.uk/before-integrating/choose-which-user-attributes-your-service-can-request/#choose-which-claims-your-service-can-request)
+- uses the `private_key_jwt` token authentication method with a RSA private key, see [Generate a key pair](https://docs.sign-in.service.gov.uk/before-integrating/generate-a-key/)
+- makes a request to the [`/authorize` endpoint](https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#make-a-request-to-the-authorize-endpoint)  to get an authorisation code
+- makes a request to the [`/token` endpoint](https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#make-a-token-request) to retrieve id and access tokens
+- makes a request to the [`/userinfo`](https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#retrieve-user-information) endpoint using the access token to retrieve the user attributes as claims
+- validates the id token signature
+- validates id token claims
+- validates the coreIdentityJWT signature using a key retrieved from the DID endpoint
+- validates coreIdentityJWT claims
 
 ## Before you start\
 
-You must [register a client on GOV.UK One Login](https://docs.sign-in.service.gov.uk/before-integrating/set-up-your-service-s-configuration/#register-your-service-to-use-gov-uk-one-login). You can [use the self service admin tool](https://admin.sign-in.service.gov.uk/register/enter-email-address) to create a client to test with in our integration environment.
+You must [register a client on GOV.UK One Login](https://docs.sign-in.service.gov.uk/before-integrating/set-up-your-service-s-configuration/#register-your-service-to-use-gov-uk-one-login). You can [use the self service admin tool](https://admin.sign-in.service.gov.uk/register/enter-email-address) to create a client to test with in our integration environment. Registering to use this service requires a `gov.uk` email address.
 
 You must have access to a Salesforce [developer environment](https://developer.salesforce.com/) in which to configure the code.
 
@@ -47,26 +48,25 @@ The configuration parameters for the authentication provider are defined using a
 - browse to go to PLATFORM - TOOLS - Custom Code - Custom Metadata Types
 - select the New Custom Metadata Type button
 - the custom meta data type holds the configuration data for the custom authentication provider
-- the name of the custom meta data type API name `OneLoginClientConfiguration__mdt` is referenced in the OneLoginProvider.cls code sample
+- the name of the custom meta data type API name `OneLoginClientConfiguration__mdt` is referenced in the OneLoginProvider.cls code sample so if you use a different name you will need to update the sample code
 - add the custom fields detailed below
   
 |name | type |desc|value|
 |-----|------|----|-----|
-|`DiscoveryUrl`| text |URL for discovery endpoint| `https://oidc.integration.account.gov.uk/.well-known/openid-configuration` |
+|`ClientID`| text| The GOV.UK One Login Client ID ||
 |`DIDUrl`| text |URL for DID endpoint| `https://identity.integration.account.gov.uk/.well-known/did.json` |
-|`IdentityIssuer` | text | The issuer in the coreIdentityJWT | `https://identity.integration.account.gov.uk/` |
-|`User_Info_Endpoint_URL` | text|  URL for user information endpoint| `https://oidc.integration.account.gov.uk/userinfo` |
-|`Scopes` | text| Default scopes required for authentication| `openid email phone` |
-|`VectorOfTrust` | text | The vtr parameter to sedn in the request to the `authorize` endpoint | `Cl` or `Cl.Cm` or `Cl.Cm.P2` |
-|`RedirectUrl` | text | Redirect URL for callback after authentication| {REDIRECT_URI} |
-|`ClientID`| text| The One Login Client ID ||
+|`DiscoveryUrl`| text |URL for discovery endpoint| `https://oidc.integration.account.gov.uk/.well-known/openid-configuration` |
+|`IdentityIssuer` | text | The issuer specified in the `iss` claim in the coreIdentityJWT | `https://identity.integration.account.gov.uk/` |
 |`PrivateKey` | textarea | Private key for signing JWT tokens| an RSA private key |
+|`RedirectUrl` | text | Redirect URL for callback after authentication| This is generated by Salesforce |
+|`Scopes` | text| Default scopes required for authentication| `openid email phone` |
+|`VectorOfTrust` | text | The vtr parameter to send in the request to the `authorize` endpoint | `Cl` or `Cl.Cm` or `Cl.Cm.P2` |
 
 ### 3. Configure the authentication provider
 
 - browse to Settings - Identity - Auth. providers
 - select the `New` button
-- Select provider type of `OneLoginProvider` from the provider type dropdown. This is the name of the custom `AuthProviderPluginClass`.
+- select provider type of `OneLoginProvider` from the provider type dropdown. This is the name of the custom `AuthProviderPluginClass`
 - enter OneLogin for the name
 - configure the rest of the parameters
   - URL Suffix = `OneLogin`
@@ -76,17 +76,17 @@ The configuration parameters for the authentication provider are defined using a
   - PrivateKey = Your RSA private key
   - Scopes = `openid email phone`
   - VectorOfTrust = `Cl` or `Cl.Cm` or `Cl.Cm.P2`
-  - Redirect_URL = `{REDIRECT_URI}`
 
-- On the registration handler field, click on the "Automatically create a registration handler template" link to create the registration handle class on save of the auth provider
-- click Save. This will populate the required Salesforce urls. Copy the Callback URL.
-- click Edit. Paste the value of the generated Callback URL into the RedirectUrl field.
-- using the Self Service admin tool make sure your One Login configuration has the same redirect url configured.
+- on the registration handler field, click on the "Automatically create a registration handler template" link to create the registration handle class on save of the auth provider
+- click Save, this generates the required Salesforce URLs found at the bottom of the page
+- copy the Callback URL
+- click Edit and paste the value of the generated Callback URL into the RedirectUrl field
+- using the Self Service admin tool make sure your One Login configuration has the same redirect url configured
 
 ### 4. Configure Remote Site Settings
 
 - by default Salesforce will not allow contact to external websites
-- you need to add the GOV.UK One Login URLs to the Remote Site list: Setup->Security->Remote site settings
+- you must add the GOV.UK One Login URLs to the Remote Site list: Setup->Security->Remote site settings
   - OneLoginIntegration = `https://oidc.integration.account.gov.uk`
   - IntegrationIdentityKeyEndpoint = `https://identity.integration.account.gov.uk`
 
@@ -98,4 +98,8 @@ The configuration parameters for the authentication provider are defined using a
 
 ### 5. Test the integration
 
-Browse to []https://{placeholder-dev-ed}.develop.my.salesforce.com/services/auth/test/ONELOGIN
+- browse to Settings - Identity - Auth. providers
+- click OneLogin
+- browse to the Test-Only Initialization URL
+- this will redirect the user's browser to GOV.UK ONe ogin to initiate the authentication flow
+- when returned to Salesforce you will see the data retrieved from GOV.UK One Login in XML format
