@@ -57,7 +57,7 @@ The configuration parameters for the authentication provider are defined using a
 |`IdentityIssuer` | text | The issuer in the coreIdentityJWT | `https://identity.integration.account.gov.uk/` |
 |`User_Info_Endpoint_URL` | text|  URL for user information endpoint| `https://oidc.integration.account.gov.uk/userinfo` |
 |`Scopes` | text| Default scopes required for authentication| `openid email phone` |
-|`VectorOfTrust` | text | The vtr parameter to sedn in the request to the `authorize` endpoint | `Cl` or `Cl.Cm` or `Cl.Cm.P2` |
+|`VectorOfTrust` | text | The vtr parameter to send in the request to the `authorize` endpoint | `Cl` or `Cl.Cm` or `Cl.Cm.P2` |
 |`RedirectUrl` | text | Redirect URL for callback after authentication| {REDIRECT_URI} |
 |`ClientID`| text| The One Login Client ID ||
 |`PrivateKey` | textarea | Private key for signing JWT tokens| an RSA private key |
