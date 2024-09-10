@@ -56,7 +56,9 @@ declare module 'express-session' {
       postLogoutRedirectUri: process.env.OIDC_LOGOUT_REDIRECT_URI,
       identityVerificationPublicKey: process.env.IV_PUBLIC_KEY,
       identityVerificationIssuer: process.env.IV_ISSUER,
-      uiLocales: process.env.UI_LOCALES
+      uiLocales: process.env.UI_LOCALES,
+      auth_vtr: process.env.AUTH_VECTOR_OF_TRUST,
+      idv_vtr: process.env.IDENTITY_VECTOR_OF_TRUST
     })
   );
 

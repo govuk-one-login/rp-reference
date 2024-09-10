@@ -11,16 +11,19 @@ const port = process.env.NODE_PORT || 3000;
 
 declare module 'express-session' {
   interface SessionData {
-    user: any;
+    user: any,
+    identity: any;
   }
 };
 
 (async () => {
   // Configure Nunjucks view engine
-  nunjucks(app, path.join(__dirname, "../shared/views"));
+  const nunjucksPath = path.join(__dirname, "../shared/views");
+  nunjucks(app, nunjucksPath);
 
   // Configure serving static assets like images and css
-  app.use(express.static(path.join(__dirname, "../../public")));
+  const publicPath = path.join(__dirname, "../../public");
+  app.use(express.static(publicPath));
 
   // Configure body-parser
   app.use(express.json());
@@ -51,7 +54,11 @@ declare module 'express-session' {
       discoveryEndpoint: process.env.OIDC_ISSUER_DISCOVERY_ENDPOINT,
       authorizeRedirectUri: process.env.OIDC_AUTHORIZE_REDIRECT_URI,
       postLogoutRedirectUri: process.env.OIDC_LOGOUT_REDIRECT_URI,
-      identityVerificationPublicKey: process.env.IV_PUBLIC_KEY
+      identityVerificationPublicKey: process.env.IV_PUBLIC_KEY,
+      identityVerificationIssuer: process.env.IV_ISSUER,
+      uiLocales: process.env.UI_LOCALES,
+      auth_vtr: process.env.AUTH_VECTOR_OF_TRUST,
+      idv_vtr: process.env.IDENTITY_VECTOR_OF_TRUST
     })
   );
 

@@ -4,10 +4,10 @@ import { Client, generators, TokenSet, AuthorizationParameters, BaseClient, } fr
 import asyncHandler from "./utils/async-handler";
 import { hash, readPrivateKey, readPublicKey } from "./utils/crypto";
 import { createPrivateKeyClient, createClientSecretClient, createIssuer } from "./utils/oidc-client";
-import { CLAIMS, PATH_DATA, VECTORS_OF_TRUST, SCOPES, HTTP_STATUS_CODES } from "./utils/app.constants";
+import { CLAIMS, SCOPES, HTTP_STATUS_CODES } from "./utils/app.constants";
 import { getLogoutTokenMaxAge, getTokenValidationClockSkew, getErrorMessage, getHomeRoute} from "./utils/config";
 
-// Issuer that is must have issued identity claims.
+// Issuer that must have issued identity claims.
 const ISSUER = "https://identity.integration.account.gov.uk/";
 const STATE_COOKIE_NAME = process.env.SESSION_NAME + "-state";
 const NONCE_COOKIE_NAME = process.env.SESSION_NAME + "-nonce";
@@ -18,9 +18,10 @@ async function getResult(
   req: Request,
   res: Response,
   ivPublicKey: KeyLike,
-  ivIssuer: String,
+  ivIssuer: string,
   client: Client,
-  tokenSet: TokenSet
+  tokenSet: TokenSet,
+  vtr?: string
 ) {
   if (!tokenSet.access_token) {
     throw new Error("No access token received");
@@ -71,11 +72,11 @@ async function getResult(
 
     // Check the validity of the claim using the public key
     const { payload } = await jwtVerify(coreIdentityJWT!, ivPublicKey, {
-      issuer: ISSUER,
+      issuer: ivIssuer
     });
 
     // Check the Vector of Trust (vot) to ensure the expected level of confidence was achieved.
-    if (payload.vot !== "P2") {
+    if (payload.vot !== vtr) {
       throw new Error("Expected level of confidence was not achieved.");
     }
 
@@ -173,8 +174,8 @@ export async function auth(configuration: AuthMiddlewareConfiguration) {
 
   router.get("/oauth/login", (req: Request, res: Response) => {
     
-    const vtr = JSON.stringify([VECTORS_OF_TRUST.AUTH_MEDIUM])
-
+    const vtr = JSON.stringify([configuration.auth_vtr]);
+    console.log("vtr=" + vtr);
     // Construct the url and redirect on to the authorization endpoint
     const authorizationUrl = buildAuthorizationUrl(configuration, req, res, client, vtr, undefined, req.query);
     console.log(authorizationUrl);
@@ -183,16 +184,15 @@ export async function auth(configuration: AuthMiddlewareConfiguration) {
 
   router.get("/oauth/verify", (req: Request, res: Response) => {
 
-    const vtr = JSON.stringify([VECTORS_OF_TRUST.AUTH_MEDIUM_IDENTITY_MEDIUM])
-
+    const vtr = JSON.stringify([configuration.idv_vtr]);
+    console.log("vtr=" + vtr);
     const claims = {
       userinfo: {
         [CLAIMS.CoreIdentity]: null,
         [CLAIMS.Address]: null,
         [CLAIMS.Passport]: null,
         [CLAIMS.DrivingPermit]: null,
-        [CLAIMS.ReturnCode]: null,
-        [CLAIMS.SocialSecurityRecord]: null
+        [CLAIMS.ReturnCode]: null
       }
     }
     // Construct the url and redirect on to the authorization endpoint
@@ -222,7 +222,7 @@ export async function auth(configuration: AuthMiddlewareConfiguration) {
       });
 
       // Call the userinfo endpoint then retreive the results of the flow.
-      const result = await getResult(req, res, ivPublicKey, ivIssuer, client, tokenSet);
+      const result = await getResult(req, res, ivPublicKey, ivIssuer, client, tokenSet, configuration.idv_vtr);
       req.session.user = { 
         sub: result.idToken!.sub, 
         idToken: result.idToken, 

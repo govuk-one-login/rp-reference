@@ -11,6 +11,8 @@ type AuthMiddlewareConfiguration = {
   identityVerificationPublicKey?: string;
   identityVerificationIssuer?: string;
   uiLocales?: string;
+  auth_vtr?: string;
+  idv_vtr?: string;
 } & (
   | {
       issuerMetadata: IssuerMetadata;

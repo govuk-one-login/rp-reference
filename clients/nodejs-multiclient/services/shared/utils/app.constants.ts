@@ -13,7 +13,8 @@ export const PATH_DATA: {
 export const VECTORS_OF_TRUST = {
   AUTH_MEDIUM: "Cl.Cm",
   AUTH_LOW: "Cl",
-  AUTH_MEDIUM_IDENTITY_MEDIUM: "Cl.Cm.P2"
+  AUTH_MEDIUM_IDENTITY_MEDIUM: "Cl.Cm.P2",
+  AUTH_MEDIUM_IDENTITY_LOW: "Cl.Cm.P1"
 };
 
 export const HTTP_STATUS_CODES = {
