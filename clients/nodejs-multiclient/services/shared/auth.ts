@@ -75,8 +75,14 @@ async function getResult(
       issuer: ivIssuer
     });
 
+    let vtrToCheck;
+    const regex = /[.Clm]/g;
+    if (vtr != null) {
+      vtrToCheck = vtr?.replace(regex,"");
+    }
+    
     // Check the Vector of Trust (vot) to ensure the expected level of confidence was achieved.
-    if (payload.vot !== vtr) {
+    if (payload.vot !== vtrToCheck) {
       throw new Error("Expected level of confidence was not achieved.");
     }
 
