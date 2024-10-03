@@ -17,19 +17,6 @@
         }) }}
       </form>
 
-      {% if refreshToken %}
-      <h1 class="govuk-heading-l">Refresh Token</h1>
-      <pre>{{refreshToken}}</pre>
-      <form method="post" action="/oauth/refresh">
-        <input type="hidden" name="token" value="{{refreshToken}}"/>
-        {{ govukButton({
-          text: "Refresh"
-        }) }}
-      </form>
-      {% else %}
-      <p>None</p>
-      {% endif %}
-
       <h1 class="govuk-heading-l">User Info</h1>
       <pre><code>{{userinfo}}</code></pre>
 
@@ -45,7 +32,6 @@
         href: "/"
       }) }}
 
-    </div>
   </main>
 </div>
 {% endblock %}

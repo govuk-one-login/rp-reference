@@ -1,7 +1,7 @@
 
 # GOV.UK One Login Relying Party reference implementations
 
-This repository contains sample reference implementatiosn of relying party clients for GOV.UK One Login:
+This repository contains sample reference implementations of relying party clients for GOV.UK One Login:
 
 - dotnet
 - nodejs
@@ -19,4 +19,4 @@ See the application specific README files for guidance on how to get these sampl
 - [DotNet Framework 4.7.2](clients/dotnet/GovUkOneLogin.Examples.DotNetFrameworkConsoleApp/README.md)
 - [Node.js](clients/nodejs/README.md)
 - [Node.js Multi-client](clients/nodejs-multiclient/README.md)
-- [Apex-SalesForce](clients/Apex-SalesForce/README.md)
+- [Apex-SalesForce](clients/Apex-Salesforce/README.md)
