@@ -1,0 +1,56 @@
+{% extends "govuk/template.njk" %}
+{% from "govuk/components/header/macro.njk" import govukHeader %}
+{% from "header/service-header.njk" import govukOneLoginServiceHeader %}
+
+{% block pageTitle %}Department of Camelids{% endblock %}
+{% block head %}
+  <!--[if !IE 8]><!-->
+  <link href="../../govuk-frontend-4.0.1.min.css" rel="stylesheet">
+  <link href="../../account.css" rel="stylesheet">
+  <link href="../../service-header.css" rel="stylesheet" >
+  <!--<![endif]-->
+
+  {# For Internet Explorer 8, you need to compile specific stylesheet #}
+  {# see https://frontend.design-system.service.gov.uk/supporting-ie8/#support-internet-explorer-8 #}
+  <!--[if IE 8]>
+    <link href="/govuk-frontend-ie8-4.0.1.min.css" rel="stylesheet">
+  <![endif]-->
+
+{% endblock %}
+
+{% block header %}
+{% if authenticated %}
+  {{ govukOneLoginServiceHeader ({ 
+    serviceName: serviceName,
+    isProduction: isProduction,
+    navigationItems: navigationItems, 
+    logOutUrl: logOutUrl
+  }) }}
+{% else %}
+  {{ govukHeader ({
+    serviceName: serviceName,
+    homepageUrl: homepageUrl,
+    serviceUrl: serviceUrl
+  }) }}
+{% endif %}
+  
+{% endblock %}
+
+{% block content %}
+  <pre>Default Template</pre>
+{% endblock %}
+
+{% block bodyEnd %}
+  {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
+  <script src="/govuk-frontend-4.0.1.min.js"></script>
+  <script src="/service-header.js"></script>
+  <script>
+    var oneLoginHeader = document.querySelector("[data-module='one-login-header']");
+    window
+      .GOVUKFrontend
+      .initAll();
+    window
+      .CrossServiceHeader(oneLoginHeader)
+      .init();
+  </script>
+{% endblock %}
