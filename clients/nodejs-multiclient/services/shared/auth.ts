@@ -198,7 +198,8 @@ export async function auth(configuration: AuthMiddlewareConfiguration) {
         [CLAIMS.Address]: null,
         [CLAIMS.Passport]: null,
         [CLAIMS.DrivingPermit]: null,
-        [CLAIMS.ReturnCode]: null
+        [CLAIMS.ReturnCode]: null,
+        [CLAIMS.SocialSecurityRecord]: null
       }
     }
     // Construct the url and redirect on to the authorization endpoint
