@@ -16,7 +16,7 @@ Read the technical documentation [understand your user’s address claim](https:
 
 [Example identities](identities) contains a set of examples showing the identity information returned from the [`/userinfo`](https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#retrieve-user-information) endpoint
 
-The examples contain the decoded version of the coreIdentityJWT claim returned by the GOV.UK One Login `\userinfo` endpoint.
+The examples contain the decoded version of the coreIdentityJWT claim returned by the GOV.UK One Login `/userinfo` endpoint.
 
 ## Names
 
