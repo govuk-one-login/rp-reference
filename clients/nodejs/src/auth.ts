@@ -5,13 +5,45 @@ import asyncHandler from "./utils/async-handler";
 import { hash, readPrivateKey, readPublicKey } from "./utils/crypto";
 import { createPrivateKeyClient, createClientSecretClient, createIssuer } from "./utils/oidc-client";
 import { CLAIMS, SCOPES } from "./utils/app.constants";
-import { getHomeRoute} from "./utils/config";
+
+// import { Resolver } from "did-resolver";
+// import { getResolver as getWebResolver } from "web-did-resolver";
 
 // Issuer that must have issued identity claims.
-const ISSUER = "https://identity.integration.account.gov.uk/";
+// const ISSUER = "https://identity.integration.account.gov.uk/";
 const STATE_COOKIE_NAME = process.env.SESSION_NAME + "-state";
 const NONCE_COOKIE_NAME = process.env.SESSION_NAME + "-nonce";
 const ID_TOKEN_COOKIE_NAME = process.env.SESSION_NAME + "-id-token";
+
+// async function getDID(did: string, kid?: string) {
+//   const webResolver = getWebResolver();
+//   const resolver = new Resolver({
+//       ...webResolver,
+//   });
+
+//   try {
+//     const result = await resolver.resolve(did);
+    
+//     // Assuming the JWKS is under 'publicKeyJwk'
+//     const jwks = result?.didDocument?.verificationMethod;
+//     if (!jwks || !Array.isArray(jwks)) {
+//       throw new Error('JWKS not found in DID document');
+//     }
+
+//     // Filter by key ID (kid) if provided
+//     const key = kid
+//       ? jwks.find((jwk) => jwk.id === kid)
+//       : jwks[0]; // Default to the first key if no kid is specified
+
+//     if (!key) {
+//       throw new Error(`Key with kid ${kid} not found`);
+//     }
+
+//     return key;
+//   } catch (error) {
+//     console.error('Error retrieving public key:', error);
+//     throw error;
+//   }}
 
 async function getResult(
   req: Request,
@@ -45,10 +77,6 @@ async function getResult(
     httpOnly: true,
   });
 
-  // const refreshToken = tokenSet.refresh_token
-  //   ? JSON.stringify(decodeJwt(tokenSet.refresh_token), null, 2)
-  //   : undefined;
-
   // Use the access token to authenticate the call to userinfo
   // Note: This is an HTTP GET to https://oidc.integration.account.gov.uk/userinfo
   // with the "Authorization: Bearer ${accessToken}` header
@@ -67,7 +95,12 @@ async function getResult(
   if (userinfo.hasOwnProperty(CLAIMS.CoreIdentity)) {
 
     // Read the resulting core identity claim
-    const coreIdentityJWT = userinfo[CLAIMS.CoreIdentity];
+    const coreIdentityJWT = userinfo[CLAIMS.CoreIdentity] || "";
+
+    const { kid } = decodeJwt(coreIdentityJWT) as { kid?: string };
+
+    // Get the public key from DID endpoint
+    //getDID("http://localhost:3000/.well-known/did.json", kid)
 
     // Check the validity of the claim using the public key
     const { payload } = await jwtVerify(coreIdentityJWT!, ivPublicKey, {
@@ -80,9 +113,20 @@ async function getResult(
       vtrToCheck = vtr?.replace(regex,"");
     }
     
+    // Check that the sub in the coreIdentity matches the one in the idToken, accessToken and userinfo
+    if (payload.sub === idToken.sub && payload.sub === accessToken.sub && payload.sub === userinfo.sub) {
+      console.log("All subs match");
+    } else {
+      throw new Error("coreIdentityJWTValidationFailed: unexpected \"sub\" claim value");
+    }
+
+    // Check aud = client-id
+    if (payload.aud !== client.metadata.client_id) {
+      throw new Error("coreIdentityJWTValidationFailed: unexpected \"aud\" claim value");
+    }
     // Check the Vector of Trust (vot) to ensure the expected level of confidence was achieved.
     if (payload.vot !== vtrToCheck) {
-      throw new Error("Expected level of confidence was not achieved.");
+      throw new Error("coreIdentityJWTValidationFailed: unexpected \"vot\" claim value");
     }
 
     coreIdentity = payload;
@@ -177,7 +221,7 @@ export async function auth(configuration: AuthMiddlewareConfiguration) {
   }
   const router = Router();
 
-  router.get("/oauth/login", (req: Request, res: Response) => {
+  router.get("/oidc/login", (req: Request, res: Response) => {
     
     const vtr = JSON.stringify([configuration.auth_vtr]);
     console.log("vtr=" + vtr);
@@ -187,7 +231,7 @@ export async function auth(configuration: AuthMiddlewareConfiguration) {
     res.redirect(authorizationUrl);
   });
 
-  router.get("/oauth/verify", (req: Request, res: Response) => {
+  router.get("/oidc/verify", (req: Request, res: Response) => {
 
     const vtr = JSON.stringify([configuration.idv_vtr]);
     console.log("vtr=" + vtr);
@@ -205,7 +249,7 @@ export async function auth(configuration: AuthMiddlewareConfiguration) {
   });
     
   // Callback receives the code and state from the authorization server
-  router.get("/oauth/callback", asyncHandler(async (req: Request, res: Response) => {
+  router.get("/oidc/authorization-code/callback", asyncHandler(async (req: Request, res: Response) => {
       // Check for an error
       if (req.query["error"]) {
         throw new Error(`${req.query.error} - ${req.query.error_description}`);
@@ -234,13 +278,13 @@ export async function auth(configuration: AuthMiddlewareConfiguration) {
         userinfo: result.userinfo,
         returnCode: result.returnCode
       };
-      const homeRedirect = getHomeRoute();
+
       // Display the results.
-      res.redirect(homeRedirect);
+      res.redirect("/home");
     })
   );
 
-  router.get("/oauth/logout", (req: Request, res: Response) => {
+  router.get("/oidc/logout", (req: Request, res: Response) => {
     // this handles the logout button click event
     const redirectUri = configuration.postLogoutRedirectUri;
 
@@ -259,7 +303,7 @@ export async function auth(configuration: AuthMiddlewareConfiguration) {
     res.redirect(logoutUrl);
   });
 
-  router.get("/logged-out", (req: Request, res: Response) => {
+  router.get("oidc/logged-out", (req: Request, res: Response) => {
     // this handles the logout redirect
     const message = { text: "You have logged out from all GOV.UK One Login integrated services." }; 
     res.render("logged-out.njk", message);

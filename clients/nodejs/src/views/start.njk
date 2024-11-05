@@ -9,12 +9,12 @@
 
       <h1 class="govuk-heading-l">{{ serviceName | safe }}</h1>
       <p class="govuk-body">
-        {{ serviceIntroMessage | safe }}
+        Click the big green button to get started.
       </p>
 
       {{ govukButton({
-        text: "Start now",
-        href: "/oauth/" + serviceType,
+        text: "Start by logging in",
+        href: "/oidc/login",
         isStartButton: true
       }) }}
 

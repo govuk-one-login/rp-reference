@@ -9,6 +9,11 @@
 
       <h1 class="govuk-heading-l">You are logged in to {{ serviceName }}</h1>
 
+      {{ govukButton({
+        text: "Verify",
+        href: "oidc/verify"
+      }) }}
+
       <h2 class="govuk-heading-m">Access Token</h2>
       <pre>{{ resultData.accessToken | dump(2) }}</pre>
 
@@ -34,16 +39,6 @@
       {% else %}
       <p class="govuk-body-m">None</p>
       {% endif %}
-      
-      {{ govukButton({
-        text: "Verify",
-        href: "oauth/logout"
-      }) }}
-
-      {{ govukButton({
-        text: "Logout",
-        href: "oauth/logout"
-      }) }}
 
     </div>
   </main>

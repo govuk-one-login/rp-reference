@@ -1,7 +1,7 @@
 {
   "extends": "./node_modules/@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
-    "outDir": "../nodejs-singleclient/dist",
+    "outDir": "dist",
     "sourceMap": true,
     "lib": ["dom"],
     "target": "ES2020",
@@ -10,9 +10,9 @@
     "skipLibCheck": true
   },
   "include": [
-    "../nodejs-singleclient/services", 
-    "../nodejs-singleclient/public", "../nodejs-singleclient/src/index.ts", "../nodejs-singleclient/src/utils", "../nodejs-singleclient/src/types"],
-  "exclude": ["../nodejs-singleclient/node_modules"],
+    "services", 
+    "public", "src/index.ts", "src/utils", "src/types"],
+  "exclude": ["node_modules"],
   "ts-node": {
     "files": true
   }

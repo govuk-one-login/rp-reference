@@ -4,10 +4,11 @@ import cookieParser from "cookie-parser";
 import path from "node:path";
 import { nunjucks } from "./utils/nunjucks";
 import { auth } from "./auth";
-import { getNodeEnv, getRootRoute, getHomeRoute, getHomePageUrl, getServiceUrl, getServiceName } from "./utils/config"; 
+import { getNodeEnv, getServiceUrl } from "./utils/config"; 
 import { AuthenticatedUser, isAuthenticated } from "./utils/helpers";
+
 export const app: Application = express();
-const port = process.env.NODE_PORT || 3000;
+const port = process.env.NODE_PORT || 8080;
 
 declare module 'express-session' {
   interface SessionData {
@@ -34,8 +35,8 @@ declare module 'express-session' {
 
   // Set up a session to track whether the user is logged in
   app.use(session({
-    name: process.env.SESSION_NAME + "-session",
-    secret: process.env.SESSION_SECRET!, 
+    name: "simple-session",
+    secret: "this-is-a-secret", 
     cookie: {
       maxAge: 1000 * 120 * 60, // 2 hours
       secure: false,
@@ -66,33 +67,29 @@ declare module 'express-session' {
 
   // Redirect root to start
   app.get("/", (req: Request, res: Response) => {
-    res.redirect(`${getRootRoute()}`);
+    res.redirect("/start");
   });
 
-  app.get(`${getRootRoute()}`, (req: Request, res: Response) => {
+  app.get("/start", (req: Request, res: Response) => {
     res.render("start.njk", 
       {
         authenticated: isAuthenticated(req, res),
-        // Start page config
-        serviceName: getServiceName(), 
-        serviceIntroMessage: process.env.SERVICE_INTRO_MESSAGE,  
-        serviceType: process.env.SERVICE_TYPE,
+        serviceName: "Sample service",
         // GOV.UK header config
-        homepageUrl: `${getHomePageUrl()}`,
+        homepageUrl: "https://gov.uk",
         serviceUrl: `${getServiceUrl()}`
       }
     );
   });
 
   // Application routes
-  app.get(`${getHomeRoute()}`, AuthenticatedUser, (req: Request, res: Response) => {
+  app.get("/home", AuthenticatedUser, (req: Request, res: Response) => {
     res.render(
       "home.njk", 
       { 
         authenticated: true,
         // page config
-        serviceName: getServiceName(),  
-        serviceType: process.env.SERVICE_TYPE, 
+        serviceName: "Sample service",  
         resultData: req.session.user,
         // Service header config
         isProduction: getNodeEnv() == "development" ? false : true
