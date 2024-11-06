@@ -7,7 +7,7 @@ An example  Node.js TypeScript application using GOV.UK One Login to authenticat
 
 `git clone https://github.com/govuk-one-login/rp-reference`
 
-`cd rp-reference/clients/nodejs-singleclient`
+`cd rp-reference/clients/nodejs`
 
 `cp example.env .env`
 
