@@ -1,10 +1,13 @@
 {% extends "govuk/template.njk" %}
-{% from "components/header/macro.njk" import header %}
+{% from "govuk/components/header/macro.njk" import govukHeader %}
+{% from "header/service-header.njk" import govukOneLoginServiceHeader %}
 
-{% block pageTitle %}Relying Party{% endblock %}
+{% block pageTitle %}GOV.UK One Login Sample{% endblock %}
 {% block head %}
   <!--[if !IE 8]><!-->
-  <link href="/govuk-frontend-4.0.1.min.css" rel="stylesheet">
+  <link href="../../govuk-frontend-4.0.1.min.css" rel="stylesheet">
+  <link href="../../account.css" rel="stylesheet">
+  <link href="../../service-header.css" rel="stylesheet" >
   <!--<![endif]-->
 
   {# For Internet Explorer 8, you need to compile specific stylesheet #}
@@ -13,23 +16,24 @@
     <link href="/govuk-frontend-ie8-4.0.1.min.css" rel="stylesheet">
   <![endif]-->
 
-  <style>
-    pre {
-      background: #f9f9f8;
-      padding: 15px;
-      overflow: auto;
-      position: relative;
-      border: 1px solid #bfc1c3;
-    }
-  </style>
-
 {% endblock %}
 
 {% block header %}
-  {{ header ({
-    logotype: 'Example',
-    homepageUrl: "/"
+{% if authenticated %}
+  {{ govukOneLoginServiceHeader ({ 
+    serviceName: serviceName,
+    isProduction: isProduction,
+    navigationItems: navigationItems, 
+    logOutUrl: logOutUrl
   }) }}
+{% else %}
+  {{ govukHeader ({
+    serviceName: serviceName,
+    homepageUrl: homepageUrl,
+    serviceUrl: serviceUrl
+  }) }}
+{% endif %}
+  
 {% endblock %}
 
 {% block content %}
@@ -39,9 +43,14 @@
 {% block bodyEnd %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   <script src="/govuk-frontend-4.0.1.min.js"></script>
+  <script src="/service-header.js"></script>
   <script>
+    var oneLoginHeader = document.querySelector("[data-module='one-login-header']");
     window
       .GOVUKFrontend
-      .initAll()
+      .initAll();
+    window
+      .CrossServiceHeader(oneLoginHeader)
+      .init();
   </script>
 {% endblock %}

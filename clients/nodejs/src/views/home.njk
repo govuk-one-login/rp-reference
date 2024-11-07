@@ -7,26 +7,38 @@
   <div class="govuk-width-container ">
     <main class="govuk-main-wrapper">
 
-      <h1 class="govuk-heading-l">An example service</h1>
-      <p class="govuk-body">
-        Login to access the service
-      </p>
+      <h1 class="govuk-heading-l">You are logged in to {{ serviceName }}</h1>
 
       {{ govukButton({
-        text: "Authenticate",
-        href: "/oauth/login"
+        text: "Verify",
+        href: "oidc/verify"
       }) }}
-      <!--
-      Query parameters will be added to the /authorize request. Eg.:
-      {{ govukButton({
-        text: "Reauthenticate",
-        href: "/oauth/login?max_age=0"
-      }) }}
-      -->
-      {{ govukButton({
-        text: "Identity Verification",
-        href: "/oauth/iv"
-      }) }}
+
+      <h2 class="govuk-heading-m">Access Token</h2>
+      <pre>{{ resultData.accessToken | dump(2) }}</pre>
+
+      <h2 class="govuk-heading-m">ID Token</h2>
+      <pre>{{ resultData.idToken | dump(2) }}</pre>
+
+      <h2 class="govuk-heading-m">Subject identifier</h2>
+      <pre>{{ resultData.sub }}</pre>
+
+      <h2 class="govuk-heading-m">User Info</h2>
+      <pre><code>{{ resultData.userinfo | dump(2) }}</code></pre>
+
+      <h2 class="govuk-heading-m">Return code</h2>
+      {% if resultData.returnCode %}
+      <pre>{{ resultData.returnCode | dump(2) }}</pre>
+      {% else %}
+      <p class="govuk-body-m">None</p>
+      {% endif %}
+
+      <h2 class="govuk-heading-m">Core Identity Claim</h2>
+      {% if resultData.coreIdentity %}
+      <pre>{{ resultData.coreIdentity | dump(2) }}</pre>
+      {% else %}
+      <p class="govuk-body-m">None</p>
+      {% endif %}
 
     </div>
   </main>
