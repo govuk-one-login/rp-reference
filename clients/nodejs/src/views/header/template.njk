@@ -24,7 +24,7 @@ Component options:
   - activeLinkId (string): The id of the link that is currently active 
 #}
 {%- set baseUrl = "https://home.account.gov.uk" if isProduction == true else "https://home.integration.account.gov.uk" %}
-{%- set logoutUrl = "http://localhost:3001/oauth/logout" %}
+{%- set logoutUrl = "http://localhost:8080/oidc/logout" %}
 {%- macro littlePersonIcon(modifier="default") -%}
   {%- set class = "focus" if modifier == "focus" else "default" %}
   {%- set backgroundColour = "black" if modifier == "focus" else "white" %}
