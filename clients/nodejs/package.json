@@ -4,6 +4,10 @@
   "description": "Example GOV.UK One Login Relying Party in Typescript",
   "private": true,
   "main": "dist/index.js",
+  "repository": {
+    "url": "github:govuk-one-login/rp-reference",
+    "directory": "clients/nodejs"
+  },
   "scripts": {
     "build": "npx ts-node -r dotenv/config ./scripts/build.ts",
     "dev": "nodemon --exec \"npx ts-node -r dotenv/config ./src/index.ts dotenv_config_path=./.env dotenv_config_debug=true\"",
