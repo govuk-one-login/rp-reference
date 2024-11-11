@@ -21,7 +21,7 @@
     "simulator:start": "curl -s localhost:3000 > /dev/null || docker run --rm -d -p 3000:3000 gdsdougapd/simulator:latest",
     "simulator:stop": "docker kill $(docker ps | grep gdsdougapd/simulator:latest | gsed -E 's/[\t ]+.*$$//')",
     "simulator:jwks": "curl -s localhost:3000/.well-known/jwks.json | jq .",
-    "start": "node dist/index.js"
+    "start": "node -r dotenv/config dist/index.js dotenv_config_path=./.env dotenv_config_debug=true"
   },
   "engines": {
     "npm": ">=7.0.0",
