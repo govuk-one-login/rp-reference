@@ -1,7 +1,7 @@
-# Example GOV.UK One Login Relying Party in Typescript
-
 > [!WARNING]
 > This is intended as a example and is not production quality code.
+
+# Example GOV.UK One Login Relying Party in Typescript
 
 An example Node.js TypeScript application using GOV.UK One Login to authenticate users for use with the [GOV.UK One Login integration environment](https://docs.sign-in.service.gov.uk/before-integrating/register-and-manage-your-service/) and the [GOV.UK One Login Simulator](https://github.com/govuk-one-login/simulator).
 
