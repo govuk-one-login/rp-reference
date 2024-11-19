@@ -708,3 +708,4 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode,node,csharp,intellij+all,windows,linux
 clients/nodejs/.env
+.vscode/launch.json
