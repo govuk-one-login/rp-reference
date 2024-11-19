@@ -1,7 +1,8 @@
 import * as openidClient from "openid-client";
 import { Request, Response } from "express";
 import { Config } from "../../config.js";
-import { decodeJwt } from "jose";
+import { decodeJwt, jwtVerify } from "jose";
+import { readPublicKey } from "../../helpers/crypto.js";
 
 export const callbackGetController = async (
     req: Request, 
@@ -30,14 +31,73 @@ export const callbackGetController = async (
         }
     )
 
-    const expectedSubject = tokens.claims().sub;
+    const idTokenSub = tokens.claims().sub;
     // Call the userinfo endpoint then retreive the results of the flow.
-    const userinfoResponse = await openidClient.fetchUserInfo(clientConfig.getOpenidClientConfiguration(), tokens.access_token, expectedSubject);
+    const userinfoResponse: openidClient.UserInfoResponse = await openidClient.fetchUserInfo(
+        clientConfig.getOpenidClientConfiguration(), 
+        tokens.access_token, 
+        idTokenSub
+    );
+    
+    let coreIdentityPayload;
+
+    //check for and validate the coreIdentityJWT
+    if (userinfoResponse.hasOwnProperty("https://vocab.account.gov.uk/v1/coreIdentityJWT")) {
+    
+        // Read the resulting core identity claim
+        const coreIdentityJWT = userinfoResponse["https://vocab.account.gov.uk/v1/coreIdentityJWT"].toString() || "";
+        console.log(coreIdentityJWT);
+
+        //decode the coreIdentity
+        const { payload } = await jwtVerify(
+            coreIdentityJWT!, 
+            readPublicKey(clientConfig.getIvPublicKey()), 
+            {
+                issuer: clientConfig.getIvIssuer()
+            }
+        );
+
+        // validate the coreIdentity data
+        let vtrToCheck;
+        const vtr = clientConfig.getIdentityVtr();
+        const regex = /[.Clm]/g;
+
+        if (vtr != null) {
+            vtrToCheck = vtr?.replace(regex,"");
+        }
+        
+        // Check that the sub in the coreIdentity sub matches the one in the idToken and userinfo
+        if (payload.sub === idTokenSub && payload.sub === userinfoResponse.sub) {
+            console.log("All subs match");
+        } else {
+            throw new Error("coreIdentityJWTValidationFailed: unexpected \"sub\" claim value");
+        }
+
+        // Check aud = client-id
+        if (payload.aud !== clientConfig.getClientId()) {
+            throw new Error("coreIdentityJWTValidationFailed: unexpected \"aud\" claim value");
+        }
+        // Check the Vector of Trust (vot) to ensure the expected level of confidence was achieved.
+        if (payload.vot !== vtrToCheck) {
+            throw new Error("coreIdentityJWTValidationFailed: unexpected \"vot\" claim value");
+        }
+
+        coreIdentityPayload = payload;
+    }
+
+    let returnCodeValue: openidClient.JsonValue | undefined;
+    if (userinfoResponse.hasOwnProperty("https://vocab.account.gov.uk/v1/returnCode")) {
+
+        returnCodeValue = userinfoResponse["https://vocab.account.gov.uk/v1/returnCode"];
+    }
+
     req.session.user = { 
-        sub: expectedSubject, 
+        sub: idTokenSub, 
         idToken: decodeJwt(tokens.id_token), 
         accessToken: decodeJwt(tokens.access_token),        
-        userinfo: userinfoResponse
+        userinfo: userinfoResponse,
+        coreIdentity: coreIdentityPayload,
+        returnCode: returnCodeValue
     };
 
     // Display the results.
