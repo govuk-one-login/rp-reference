@@ -5,7 +5,6 @@ This repository contains sample implementations of relying party clients that in
 
 The following samples are currently available
 
-- .NET Framework 4.7.2
 - Node.js
 - Salesforce using Apex
 
@@ -18,6 +17,5 @@ For up-to-date technical documentation detailing how to integrate with GOV.UK On
 
 See the application specific README files for guidance on how to get these samples up and running.
 
-- [DotNet Framework 4.7.2](clients/dotnet/GovUkOneLogin.Examples.DotNetFrameworkConsoleApp/README.md)
 - [Node.js](clients/nodejs/README.md)
 - [Apex-SalesForce](clients/Apex-SalesForce/README.md)
