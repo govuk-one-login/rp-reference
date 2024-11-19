@@ -9,8 +9,6 @@ An example  Node.js TypeScript application using GOV.UK One Login to authenticat
 
 `cd rp-reference/clients/nodejs`
 
-`cp example.env .env`
-
 configure your `.env` file to point to integration or the simulator
 
 `npm install`

@@ -1,14 +1,16 @@
-import express, { Application, NextFunction, Request, Response } from "express";
+import express, { Application, Express, NextFunction, Request, Response } from "express";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import path from "node:path";
-import { nunjucks } from "./utils/nunjucks";
-import { auth } from "./auth";
-import { getNodeEnv, getServiceUrl } from "./utils/config"; 
-import { AuthenticatedUser, isAuthenticated } from "./utils/helpers";
-
-export const app: Application = express();
-const port = process.env.NODE_PORT || 8080;
+import { setupNunjucks } from "./utils/nunjucks.js";
+//import { auth } from "./auth";
+import { getNodeEnv, getServiceUrl } from "./utils/config.js"; 
+import { AuthenticatedUser, isAuthenticated } from "./utils/helpers.js";
+import { loginGetController } from "./components/login/login-get-controller.js";
+import { verifyGetController } from "./components/verify/verify-get-controller.js";
+import { callbackGetController } from "./components/callback/callback-get-controller.js";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 declare module 'express-session' {
   interface SessionData {
@@ -17,10 +19,15 @@ declare module 'express-session' {
   }
 };
 
-(async () => {
+const createApp = (): Application => {
+  const app: Express = express();
+
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
+
   // Configure Nunjucks view engine
   const nunjucksPath = path.join(__dirname, "./views");
-  nunjucks(app, nunjucksPath);
+  setupNunjucks(app, nunjucksPath);
 
   // Configure serving static assets like images and css
   const publicPath = path.join(__dirname, "../public");
@@ -46,26 +53,12 @@ declare module 'express-session' {
     saveUninitialized: true
   }));
 
-  // Configure OpenID Connect Authentication middleware
-  app.use(
-    await auth({
-      clientId: process.env.OIDC_CLIENT_ID,
-      clientSecret: process.env.OIDC_CLIENT_SECRET,
-      tokenAuthMethod: process.env.OIDC_TOKEN_AUTH_METHOD,
-      privateKey: process.env.OIDC_PRIVATE_KEY,
-      idTokenSigningAlg: process.env.OIDC_ID_TOKEN_SIGNING_ALG,
-      discoveryEndpoint: process.env.OIDC_ISSUER_DISCOVERY_ENDPOINT,
-      authorizeRedirectUri: process.env.OIDC_AUTHORIZE_REDIRECT_URI,
-      postLogoutRedirectUri: process.env.OIDC_LOGOUT_REDIRECT_URI,
-      identityVerificationPublicKey: process.env.IV_PUBLIC_KEY,
-      identityVerificationIssuer: process.env.IV_ISSUER,
-      uiLocales: process.env.UI_LOCALES,
-      auth_vtr: process.env.AUTH_VECTOR_OF_TRUST,
-      idv_vtr: process.env.IDENTITY_VECTOR_OF_TRUST
-    })
-  );
+  app.get("/oidc/login", loginGetController);
 
-  // Redirect root to start
+  app.get("/oidc/verify", verifyGetController);
+
+  app.get("/oidc/authorization-code/callback", callbackGetController);
+  
   app.get("/", (req: Request, res: Response) => {
     res.redirect("/start");
   });
@@ -82,7 +75,6 @@ declare module 'express-session' {
     );
   });
 
-  // Application routes
   app.get("/home", AuthenticatedUser, (req: Request, res: Response) => {
     res.render(
       "home.njk", 
@@ -105,11 +97,7 @@ declare module 'express-session' {
     });
   });
 
-  const server = await app.listen(port);
-  const listeningAddress = server.address();
-  if (listeningAddress && typeof listeningAddress === "object") {
-    console.log(
-      `Server listening ${listeningAddress.address}:${listeningAddress.port}`
-    );
-  }
-})();
+  return app;
+};
+
+export { createApp };

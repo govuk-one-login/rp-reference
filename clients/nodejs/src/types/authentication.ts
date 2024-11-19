@@ -1,27 +1,19 @@
-type AuthMiddlewareConfiguration = {
-  clientId: string;
-  clientSecret?: string;
-  tokenAuthMethod?: string;
-  privateKey: string;
-  idTokenSigningAlg?: string;
-  clientMetadata?: Partial<ClientMetadata>;
-  authorizeRedirectUri?: string;
-  postLogoutRedirectUri?: string;
-  callbackRedirectUri?: string;
-  identityVerificationPublicKey?: string;
-  identityVerificationIssuer?: string;
-  uiLocales?: string;
-  auth_vtr?: string;
-  idv_vtr?: string;
-} & (
-  | {
-      issuerMetadata: IssuerMetadata;
-    }
-  | {
-      discoveryEndpoint: string;
-      issuerMetadata?: Partial<IssuerMetadata>;
-    }
-);
+// type AuthMiddlewareConfiguration = {
+//   clientId: string;
+//   clientSecret?: string;
+//   tokenAuthMethod?: string;
+//   privateKey: string;
+//   idTokenSigningAlg?: string;
+//   authorizeRedirectUri?: string;
+//   postLogoutRedirectUri?: string;
+//   callbackRedirectUri?: string;
+//   identityVerificationPublicKey?: string;
+//   identityVerificationIssuer?: string;
+//   uiLocales?: string;
+//   auth_vtr?: string;
+//   idv_vtr?: string;
+//   discoveryEndpoint: string;
+// };
 
 type IdentityCheckCredential = {
   credentialSubject: {
