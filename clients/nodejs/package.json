@@ -6,7 +6,9 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "npx ts-node -r dotenv/config ./scripts/build.ts",
-    "dev": "nodemon --exec \"npx ts-node -r dotenv/config ./src/index.ts dotenv_config_path=./.env dotenv_config_debug=true\""
+    "dev": "nodemon --exec \"npx ts-node -r dotenv/config ./src/index.ts dotenv_config_path=./.env dotenv_config_debug=true\"",
+    "start": "node -r dotenv/config dist/index.js dotenv_config_path=./.env dotenv_config_debug=true"
+
   },
   "engines": {
     "npm": ">=7.0.0",
