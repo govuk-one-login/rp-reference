@@ -1,23 +1,28 @@
+# GOV.UK One Login examples
 
-# GOV.UK One Login Relying Party example implementations
+> [!WARNING]
+> These example applications and data are provided for demonstration purposes only and are production quality code with approapriate levels of error handling.
 
-This repository contains sample implementations of relying party clients that integrate with GOV.UK One Login for authentication and identity verification:
+A number of example relying party [clients](clients) and [data](data)
 
-The following samples are currently available
 
-- .NET Framework 4.7.2
-- Node.js
-- Salesforce using Apex
+## Clients 
 
-> These applications demonstrate basic integration with GOV.UK One Login.
-> They are intended to be an example only and do not represent production quality code.
+|Runtime|Version|Language|Description|Usage|
+|-------|-|--------|-----------|-----|
+| .NET Framework | 4.7.2 | C# | C# using the ,NET framework | [README](clients/dotnet/GovUkOneLogin.Examples.DotNetFrameworkConsoleApp/README.md) |
+| .Net Core | | C# | C# using the .NET Core framework | [README](clients/dotnet/GovUkOneLogin.Examples.DotNetCore/README.md) |
+| Node.js | 22.11.0 | Typescript | Typescript using the express framework| [README](clients/nodejs/README.md) |
+| Salesforce | |  Apex | Apex using the Salesforce framwork |  [README](clients/Apex-SalesForce/README.md) |
 
 For up-to-date technical documentation detailing how to integrate with GOV.UK One Login see the [technical documentation](https://docs.sign-in.service.gov.uk/).
 
-## How to use
+### How to use
 
 See the application specific README files for guidance on how to get these samples up and running.
 
-- [DotNet Framework 4.7.2](clients/dotnet/GovUkOneLogin.Examples.DotNetFrameworkConsoleApp/README.md)
-- [Node.js](clients/nodejs/README.md)
-- [Apex-SalesForce](clients/Apex-SalesForce/README.md)
+## Data
+
+- Examples of [addresses](data/addresses), [names](data/names) and [identities](data/identities)
+- Example [configuration files](data/simulator-configuration) for the GOV.UK One Login Simulator
+
