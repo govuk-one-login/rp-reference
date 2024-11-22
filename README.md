@@ -13,7 +13,7 @@ A number of example relying party [clients](clients) and [data](data)
 | .NET Framework | 4.7.2 | C# | C# using the ,NET framework | [README](clients/dotnet/GovUkOneLogin.Examples.DotNetFrameworkConsoleApp/README.md) |
 | .Net Core | | C# | C# using the .NET Core framework | [README](clients/dotnet/GovUkOneLogin.Examples.DotNetCore/README.md) |
 | Node.js | 22.11.0 | Typescript | Typescript using the express framework| [README](clients/nodejs/README.md) |
-| Salesforce | |  Apex | Apex using the Salesforce framwork |  [README](clients/Apex-SalesForce/README.md) |
+| Salesforce | |  Apex | Apex using the Salesforce framwork |  [README](clients/Apex-Salesforce/README.md) |
 
 For up-to-date technical documentation detailing how to integrate with GOV.UK One Login see the [technical documentation](https://docs.sign-in.service.gov.uk/).
 
