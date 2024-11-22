@@ -1,0 +1,24 @@
+POST http://localhost:3000/config HTTP/1.1
+content-type: application/json
+
+{
+	"clientConfiguration": {
+		"redirectUrls": [
+			"http://localhost:8080/oidc/authorization-code/callback"
+		],
+		"clientId": "HGIOgho9HIRhgoepdIOPFdIUWgewi0jw",
+		"publicKey": "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmXXR3EsRvUMVhEJMtQ1wexJjfQ00Q0MQ7ARfShN53BnOQEPFnS/I8ntBddkKdE3q+vMTI72w6Fv3SsMM+ciR2LIHdEQfKgsLt6PGNcV1kG6GG/3nSW3psW8w65Q3fmy81P1748qezDrVfaGrF4PDXALzX1ph+nz8mpKmck6aY6LEUJ4B+TIfYzlKmmwFe3ri0spSW+J5wE9mmT3VkR2ySuHRYHQlxlF9dfX7ltOTsbgJFzN6TO01ZQDhY0iLwzdGwhSxO6R6N/ZINYHCKFPaQD+tdKsrw7QDIYnx0IiXFnkGnizl3UtqSmXAaceTvPM2Pz84x2JiwHrp2Sml6RYLCQIDAQAB-----END PUBLIC KEY-----"
+	},
+	"responseConfiguration": {
+		"email": "person@example.com",
+		"emailVerified": true,
+		"phoneNumber": "07890123456",
+		"phoneNumberVerified": true,
+		"coreIdentityVerifiableCredentials": {},
+		"passportDetails": null,
+		"drivingPermitDetails": null,
+		"socialSecurityRecordDetails": null,
+		"postalAddressDetails": [],
+		"returnCodes": []
+	}	
+}

@@ -1,0 +1,28 @@
+{
+  "type": ["VerifiableCredential", "IdentityCheckCredential"],
+  "credentialSubject": {
+    "name": [
+      {
+        "nameParts": [
+          {
+            "value": "RUSSELL",
+            "type": "GivenName"
+          },
+          {
+            "value": "T",
+            "type": "GivenName"
+          },
+          {
+            "value": "DAVIES",
+            "type": "FamilyName"
+          }
+        ]
+      }
+    ],
+    "birthDate": [
+      {
+        "value": "1985-01-23"
+      }
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "type": ["VerifiableCredential", "IdentityCheckCredential"],
+  "credentialSubject": {
+    "name": [
+      {
+        "nameParts": [
+          {
+            "value": "LISA",
+            "type": "GivenName"
+          },
+          {
+            "value": "S",
+            "type": "GivenName"
+          },
+          {
+            "value": "C",
+            "type": "GivenName"
+          },
+          {
+            "value": "LOOSELEY",
+            "type": "FamilyName"
+          }
+        ]
+      }
+    ],
+    "birthDate": [
+      {
+        "value": "1973-03-14"
+      }
+    ]
+  }
+}

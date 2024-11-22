@@ -1,0 +1,24 @@
+{
+  "type": ["VerifiableCredential", "IdentityCheckCredential"],
+  "credentialSubject": {
+    "name": [
+      {
+        "nameParts": [
+          {
+            "value": "GEORGE",
+            "type": "GivenName"
+          },
+          {
+            "value": "WOLFESCHLEGELSTEINHAUSENBERGER",
+            "type": "FamilyName"
+          }
+        ]
+      }
+    ],
+    "birthDate": [
+      {
+        "value": "1972-03-18"
+      }
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "type": ["VerifiableCredential", "IdentityCheckCredential"],
+  "credentialSubject": {
+    "name": [
+      {
+        "nameParts": [
+          {
+            "value": "ATINUKE",
+            "type": "GivenName"
+          },
+          {
+            "value": "ZUIHASH",
+            "type": "GivenName"
+          },
+          {
+            "value": "LOWE",
+            "type": "FamilyName"
+          }
+        ]
+      }
+    ],
+    "birthDate": [
+      {
+        "value": "1973-04-01"
+      }
+    ]
+  }
+}

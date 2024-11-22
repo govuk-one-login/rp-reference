@@ -1,0 +1,32 @@
+{
+  "type": ["VerifiableCredential", "IdentityCheckCredential"],
+  "credentialSubject": {
+    "name": [
+      {
+        "nameParts": [
+          {
+            "value": "JULIE",
+            "type": "GivenName"
+          },
+          {
+            "value": "SYED",
+            "type": "GivenName"
+          },
+          {
+            "value": "HABIB",
+            "type": "GivenName"
+          },
+          {
+            "value": "EYLES-SPENCER",
+            "type": "FamilyName"
+          }
+        ]
+      }
+    ],
+    "birthDate": [
+      {
+        "value": "1967-03-01"
+      }
+    ]
+  }
+}
