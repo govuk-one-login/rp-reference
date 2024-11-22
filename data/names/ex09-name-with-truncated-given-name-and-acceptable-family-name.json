@@ -1,0 +1,32 @@
+{
+  "type": ["VerifiableCredential", "IdentityCheckCredential"],
+  "credentialSubject": {
+    "name": [
+      {
+        "nameParts": [
+          {
+            "value": "WARNAKULASURIYA",
+            "type": "GivenName"
+          },
+          {
+            "value": "PATABENDIGE",
+            "type": "GivenName"
+          },
+          {
+            "value": "USH",
+            "type": "GivenName"
+          },
+          {
+            "value": "VAAS",
+            "type": "FamilyName"
+          }
+        ]
+      }
+    ],
+    "birthDate": [
+      {
+        "value": "1966-08-08"
+      }
+    ]
+  }
+}

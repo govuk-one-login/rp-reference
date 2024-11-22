@@ -1,0 +1,1 @@
+GET http://localhost:3000/.well-known/openid-configuration HTTP/1.1

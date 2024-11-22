@@ -1,0 +1,28 @@
+{
+  "type": ["VerifiableCredential", "IdentityCheckCredential"],
+  "credentialSubject": {
+    "name": [
+      {
+        "nameParts": [
+          {
+            "value": "DR",
+            "type": "GivenName"
+          },
+          {
+            "value": "STEPHEN",
+            "type": "GivenName"
+          },
+          {
+            "value": "MOORE",
+            "type": "FamilyName"
+          }
+        ]
+      }
+    ],
+    "birthDate": [
+      {
+        "value": "1959-04-23"
+      }
+    ]
+  }
+}

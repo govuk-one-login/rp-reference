@@ -1,0 +1,32 @@
+{
+  "type": ["VerifiableCredential", "IdentityCheckCredential"],
+  "credentialSubject": {
+    "name": [
+      {
+        "nameParts": [
+          {
+            "value": "DAVINA",
+            "type": "GivenName"
+          },
+          {
+            "value": "NIGEL",
+            "type": "GivenName"
+          },
+          {
+            "value": "DUNCAN",
+            "type": "GivenName"
+          },
+          {
+            "value": "TUNNICLIFFE",
+            "type": "FamilyName"
+          }
+        ]
+      }
+    ],
+    "birthDate": [
+      {
+        "value": "1965-03-01"
+      }
+    ]
+  }
+}
