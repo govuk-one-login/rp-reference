@@ -1,21 +1,32 @@
+# GOV.UK One Login examples
 
-# GOV.UK One Login Relying Party example implementations
+> [!WARNING]
+> These example applications and data are provided for demonstration purposes only and are not production quality code with approapriate levels of error handling.
 
-This repository contains sample implementations of relying party clients that integrate with GOV.UK One Login for authentication and identity verification:
+A number of example relying party [clients](clients) and [data](data)
 
-The following samples are currently available
-
-- Node.js
-- Salesforce using Apex
-
-> These applications demonstrate basic integration with GOV.UK One Login.
-> They are intended to be an example only and do not represent production quality code.
-
-For up-to-date technical documentation detailing how to integrate with GOV.UK One Login see the [technical documentation](https://docs.sign-in.service.gov.uk/).
-
-## How to use
+## Clients
 
 See the application specific README files for guidance on how to get these samples up and running.
 
-- [Node.js](clients/nodejs/README.md)
-- [Apex-SalesForce](clients/Apex-SalesForce/README.md)
+|Runtime|Version|Language|Description|Usage|
+|-------|-|--------|-----------|-----|
+| Node.js | 22.11.0 | [Typescript](https://www.typescriptlang.org/) | Typescript using the express framework| [README](clients/nodejs/README.md) |
+| Salesforce | | [Apex](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_dev_guide.htm) | Apex using the Salesforce framework |  [README](clients/salesforce-apex/README.md) |
+
+For up-to-date technical documentation detailing how to integrate with GOV.UK One Login see the [technical documentation](https://docs.sign-in.service.gov.uk/).
+
+## Data
+
+Read more about the data provided in the [README](data/README.md)
+
+Examples of:
+
+- [addresses](data/addresses)
+- [names](data/names)
+- [identities](data/identities)
+- [configuration files](data/simulator-configuration) for the GOV.UK One Login Simulator
+
+## Tools
+
+- [Generate a Time-based one-time password (TOTP) in TypeScript](tools/totp)

@@ -1,0 +1,24 @@
+{
+  "type": ["VerifiableCredential", "IdentityCheckCredential"],
+  "credentialSubject": {
+    "name": [
+      {
+        "nameParts": [
+          {
+            "value": "DAVID",
+            "type": "GivenName"
+          },
+          {
+            "value": "WILLIAMS BROWN",
+            "type": "FamilyName"
+          }
+        ]
+      }
+    ],
+    "birthDate": [
+      {
+        "value": "1956-03-02"
+      }
+    ]
+  }
+}

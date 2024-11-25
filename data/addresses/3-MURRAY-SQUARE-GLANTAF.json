@@ -1,0 +1,26 @@
+[
+  {
+    "addressCountry": "GB",
+    "uprn": 130010311,
+    "buildingName": "",
+    "streetName": "MURRAY SQUARE",
+    "postalCode": "IV54 8YE",
+    "buildingNumber": "3",
+    "dependentAddressLocality": "LOCHCARRON",
+    "addressLocality": "STRATHCARRON",
+    "validFrom": "2024-01-01",
+    "subBuildingName": ""
+  },
+  {
+    "addressCountry": "GB",
+    "uprn": 10009163839,
+    "buildingName": "GLANTAF",
+    "streetName": "",
+    "postalCode": "SA33 4EJ",
+    "buildingNumber": "",
+    "validUntil": "2024-01-01",
+    "dependentAddressLocality": "SANCLER",
+    "addressLocality": "CAERFYRDDIN",
+    "subBuildingName": "FLAT 1"
+  }
+]
