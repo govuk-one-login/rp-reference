@@ -7,7 +7,11 @@
   "scripts": {
     "build": "npx pkgroll",
     "dev:int": "cp .env.integration .env && tsx watch --clear-screen=false src/server.ts",
-    "dev:sim": "cp .env.simulator .env && tsx watch --clear-screen=false src/server.ts"
+    "dev:sim": "cp .env.simulator .env && tsx watch --clear-screen=false src/server.ts",
+    "simulator:shell": "curl -s localhost:3000 > /dev/null && docker exec -ti $(docker ps -q -f name=simulator) bash",
+    "simulator:start": "curl -s localhost:3000 > /dev/null || docker run --rm -d -p 3000:3000 --name simulator ghcr.io/govuk-one-login/simulator:latest",
+    "simulator:status": "curl -s localhost:3000 > /dev/null && docker ps -f name=simulator",
+    "simulator:stop": "curl -s localhost:3000 > /dev/null && docker kill $(docker ps -q -f name=simulator)"
   },
   "devDependencies": {
     "@tsconfig/node-lts": "^22.0.0",
