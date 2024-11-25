@@ -1,5 +1,6 @@
 import { UserIdentityClaim } from "./user-info.js";
 import * as openidClient from "openid-client";
+import DIDKeySet from "../types/did-keyset.js";
 
 export default interface ClientConfiguration {
   clientId?: string;
@@ -9,6 +10,7 @@ export default interface ClientConfiguration {
   discoveryUrl?: string;
   ivIssuer?: string;
   ivPublicKey?: string;
+  ivPublicKeys?: DIDKeySet[];
   scopes?: string[];
   authorizeRedirectUrl?: string;
   postLogoutRedirectUrl?: string;

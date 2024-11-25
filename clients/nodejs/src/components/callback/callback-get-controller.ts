@@ -2,7 +2,11 @@ import * as openidClient from "openid-client";
 import { Request, Response } from "express";
 import { Config } from "../../config.js";
 import { decodeJwt, jwtVerify } from "jose";
-import { readPublicKey } from "../../helpers/crypto.js";
+import { readPublicKey, getKidFromToken } from "../../helpers/crypto.js";
+import DIDKeySet from "../../types/did-keyset.js";
+import { fetchPublicKeys } from "../../helpers/did.js";
+import { logger } from "../../logger.js";
+import { KeyObject } from "crypto";
 
 export const callbackGetController = async (
     req: Request, 
@@ -40,18 +44,43 @@ export const callbackGetController = async (
     );
     
     let coreIdentityPayload;
+    let coreIdentityJWT;
+    let ivPublicKey: JsonWebKey | KeyObject;
 
-    //check for and validate the coreIdentityJWT
+    //check for a coreIdentityJWT
     if (userinfoResponse.hasOwnProperty("https://vocab.account.gov.uk/v1/coreIdentityJWT")) {
     
-        // Read the resulting core identity claim
-        const coreIdentityJWT = userinfoResponse["https://vocab.account.gov.uk/v1/coreIdentityJWT"].toString() || "";
+        coreIdentityJWT = userinfoResponse["https://vocab.account.gov.uk/v1/coreIdentityJWT"].toString() || "";
         console.log(coreIdentityJWT);
+        
+        // check to see if we have a static key
+        if (clientConfig.getIvPublicKey().length == 0)
+            const kid: string | undefined = getKidFromToken(coreIdentityJWT);
+            
+            let publicKeys: DIDKeySet[] = clientConfig.getIvPublicKeys();
+            
+            // check to see if we have any keys stored
+            if (publicKeys.length == 0) {
+                publicKeys = await fetchPublicKeys();
+                clientConfig.setIvPublicKeys(publicKeys);
+            }
+
+            // check to see if we now have the kid and matching key
+            const keySet = clientConfig.getIvPublicKeys().find(keyset => keyset.id === kid);
+            if (keySet) {
+                ivPublicKey = keySet.publicKeyJwk;    
+            } else {
+                logger.error(`No matching public key found for key id:${kid}`);
+                throw new Error("coreIdentityJWTValidationFailed: unexpected \"kid\" found in JWT header");
+            }
+        } else {
+            ivPublicKey = readPublicKey(clientConfig.getIvPublicKey());
+        }
 
         //decode the coreIdentity
         const { payload } = await jwtVerify(
             coreIdentityJWT!, 
-            readPublicKey(clientConfig.getIvPublicKey()), 
+            ivPublicKey, 
             {
                 issuer: clientConfig.getIvIssuer()
             }
@@ -77,6 +106,7 @@ export const callbackGetController = async (
         if (payload.aud !== clientConfig.getClientId()) {
             throw new Error("coreIdentityJWTValidationFailed: unexpected \"aud\" claim value");
         }
+        
         // Check the Vector of Trust (vot) to ensure the expected level of confidence was achieved.
         if (payload.vot !== vtrToCheck) {
             throw new Error("coreIdentityJWTValidationFailed: unexpected \"vot\" claim value");

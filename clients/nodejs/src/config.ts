@@ -1,9 +1,10 @@
 import ClientConfiguration from "./types/client-configuration.js";
 import { UserIdentityClaim } from "./types/user-info.js";
 import * as openidClient from "openid-client";
-import dotenv from 'dotenv';
-import { dirname, join } from 'path';
-import { fileURLToPath } from 'url';
+import dotenv from "dotenv";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
+import { DIDKeySet } from "./types/client-configuration.js";
 
 export class Config {
     private static instance: Config;
@@ -104,6 +105,14 @@ export class Config {
 
     public setIvPublicKey(ivPublicKey: string): void {
         this.clientConfiguration.ivPublicKey = ivPublicKey;
+    }
+
+    public getIvPublicKeys(): DIDKeySet[] {
+        return this.clientConfiguration.ivPublicKeys;
+    }
+
+    public setIvPublicKeys(ivPublicKeys: DIDKeySet[]): void {
+        this.clientConfiguration.ivPublicKeys = ivPublicKeys;
     }
 
     public getScopes(): string[] {
