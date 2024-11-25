@@ -18,9 +18,12 @@ See the application specific README files for guidance on how to get these sampl
 For up-to-date technical documentation detailing how to integrate with GOV.UK One Login see the [technical documentation](https://docs.sign-in.service.gov.uk/).
 
 ## Data
-
-- Examples of [addresses](data/addresses), [names](data/names) and [identities](data/identities)
-- Example [configuration files](data/simulator-configuration) for the GOV.UK One Login Simulator
+Read more about the data provided in the [README](data/README.md)
+Examples of:
+- [addresses](data/addresses)
+- [names](data/names)
+- [identities](data/identities)
+- [configuration files](data/simulator-configuration) for the GOV.UK One Login Simulator
 
 ## Tools
 - [Generate a Time-based one-time password (TOTP) in TypeScript](tools/totp)
