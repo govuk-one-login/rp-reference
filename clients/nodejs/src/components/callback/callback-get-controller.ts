@@ -55,7 +55,7 @@ export const callbackGetController = async (
         if (userinfoResponse.hasOwnProperty("https://vocab.account.gov.uk/v1/coreIdentityJWT")) {
         
             coreIdentityJWT = userinfoResponse["https://vocab.account.gov.uk/v1/coreIdentityJWT"].toString() || "";
-            console.log(coreIdentityJWT);
+            logger.debug(coreIdentityJWT);
             
             const kid: string = getKidFromTokenHeader(coreIdentityJWT);
             const ivPublicKey = await getIdentitySigningPublicKey(clientConfig, kid);
@@ -80,9 +80,11 @@ export const callbackGetController = async (
             
             // Check that the sub in the coreIdentity sub matches the one in the idToken and userinfo
             if (payload.sub === idTokenSub && payload.sub === userinfoResponse.sub) {
-                console.log("All subs match");
+                logger.debug("All subs match");
             } else {
-                throw new Error("coreIdentityJWTValidationFailed: unexpected \"sub\" claim value");
+                const msg: string = "coreIdentityJWTValidationFailed: unexpected \"sub\" claim value";
+                logger.debug(msg);
+                throw new Error(msg);
             }
 
             // Check aud = client-id
