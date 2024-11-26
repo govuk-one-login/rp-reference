@@ -6,8 +6,7 @@ import { setupNunjucks } from "./utils/nunjucks.js";
 //import { auth } from "./auth";
 import { getNodeEnv, getServiceUrl } from "./utils/config.js"; 
 import { AuthenticatedUser, isAuthenticated } from "./utils/helpers.js";
-import { loginGetController } from "./components/login/login-get-controller.js";
-import { verifyGetController } from "./components/verify/verify-get-controller.js";
+import { authorizeController } from "./components/authorize/authorize-controller.js";
 import { callbackGetController } from "./components/callback/callback-get-controller.js";
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -53,9 +52,14 @@ const createApp = (): Application => {
     saveUninitialized: true
   }));
 
-  app.get("/oidc/login", loginGetController);
 
-  app.get("/oidc/verify", verifyGetController);
+  app.get("/oidc/login", (req: Request, res: Response, next: NextFunction) => 
+    authorizeController(req, res, next, false)
+  );
+
+  app.get("/oidc/verify", (req: Request, res: Response, next: NextFunction) => 
+    authorizeController(req, res, next, true)
+  );
 
   app.get("/oidc/authorization-code/callback", callbackGetController);
   
