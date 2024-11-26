@@ -4,7 +4,7 @@ import * as openidClient from "openid-client";
 import dotenv from "dotenv";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
-import { DIDKeySet } from "./types/client-configuration.js";
+import DIDKeySet from "./types/did-keyset.js";
 
 export class Config {
     private static instance: Config;
@@ -27,7 +27,7 @@ export class Config {
                 ? process.env.OIDC_ISSUER + "/.well-known/openid-configuration" 
                 : "https://oidc.integration.account.gov.uk/.well-known/openid-configuration",
             ivIssuer: process.env.IV_ISSUER ?? "",
-            ivPublicKey: process.env.IV_PUBLIC_KEY ?? "",
+            ivDidUri: process.env.IV_DID_URI ?? "",
             scopes: ["openid", "email", "phone"],
             authorizeRedirectUrl: process.env.OIDC_AUTHORIZE_REDIRECT_URI ?? "",
             postLogoutRedirectUrl: process.env.OIDC_POST_LOGOUT_REDIRECT_URI ?? "",
@@ -99,12 +99,12 @@ export class Config {
         this.clientConfiguration.ivIssuer = ivIssuer;
     }
 
-    public getIvPublicKey(): string {
-        return this.clientConfiguration.ivPublicKey!;
+    public getIvDidUri(): string {
+        return this.clientConfiguration.ivDidUri!;
     }
 
-    public setIvPublicKey(ivPublicKey: string): void {
-        this.clientConfiguration.ivPublicKey = ivPublicKey;
+    public setIvDidUri(ivDidUri: string): void {
+        this.clientConfiguration.ivDidUri = ivDidUri;
     }
 
     public getIvPublicKeys(): DIDKeySet[] {

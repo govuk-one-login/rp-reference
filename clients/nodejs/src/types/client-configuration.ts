@@ -9,7 +9,7 @@ export default interface ClientConfiguration {
   issuer?: string;
   discoveryUrl?: string;
   ivIssuer?: string;
-  ivPublicKey?: string;
+  ivDidUri?: string;
   ivPublicKeys?: DIDKeySet[];
   scopes?: string[];
   authorizeRedirectUrl?: string;
