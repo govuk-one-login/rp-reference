@@ -9,6 +9,7 @@ COPY --chown=node:node --from=base /app/package*.json ./
 COPY --chown=node:node --from=base /app/.env ./
 COPY --chown=node:node --from=base /app/node_modules/ node_modules
 COPY --chown=node:node --from=base /app/dist/ dist
+COPY --chown=node:node --from=base /app/src/views dist/views
 COPY --chown=node:node --from=base /app/public/ public
 
 ENV NODE_ENV="production"
