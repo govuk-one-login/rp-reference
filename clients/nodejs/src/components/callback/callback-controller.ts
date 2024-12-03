@@ -5,7 +5,7 @@ import { decodeJwt, jwtVerify } from "jose";
 import { getKidFromTokenHeader, getIdentitySigningPublicKey } from "../../helpers/crypto.js";
 import { logger } from "../../logger.js";
 
-export const callbackGetController = async (
+export const callbackController = async (
     req: Request, 
     res: Response,
     next: NextFunction
@@ -29,11 +29,16 @@ export const callbackGetController = async (
             clientConfig.getOpenidClientConfiguration(), 
             currentUrl, 
             {
-            expectedNonce: nonce,
-            expectedState: state,
-            idTokenExpected: true,
+                expectedNonce: nonce,
+                expectedState: state,
+                idTokenExpected: true,
             }
         )
+
+        const idToken = tokens.id_token;
+        res.cookie("id-token", idToken, {
+            httpOnly: true,
+        });
 
         const idTokenSub = tokens.claims().sub;
         const userinfoResponse: openidClient.UserInfoResponse = await openidClient.fetchUserInfo(
@@ -47,7 +52,6 @@ export const callbackGetController = async (
 
         let returnCodeValue: openidClient.JsonValue | undefined;
         if (userinfoResponse.hasOwnProperty("https://vocab.account.gov.uk/v1/returnCode")) {
-
             returnCodeValue = userinfoResponse["https://vocab.account.gov.uk/v1/returnCode"];
         }
 
@@ -113,8 +117,11 @@ export const callbackGetController = async (
             returnCode: returnCodeValue
         };
 
-        // Display the results.
-        res.redirect("/home");
+        if (clientConfig.getImmediateRedirect && !coreIdentityPayload) {
+            res.redirect("/oidc/verify");
+        } else {
+            res.redirect("/home");
+        }
 
     } catch (error) {
         next(error);
