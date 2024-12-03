@@ -3,13 +3,13 @@ import session from "express-session";
 import cookieParser from "cookie-parser";
 import path from "node:path";
 import { setupNunjucks } from "./utils/nunjucks.js";
-//import { auth } from "./auth";
 import { getNodeEnv, getServiceUrl } from "./utils/config.js"; 
 import { AuthenticatedUser, isAuthenticated } from "./utils/helpers.js";
 import { authorizeController } from "./components/authorize/authorize-controller.js";
-import { callbackGetController } from "./components/callback/callback-get-controller.js";
+import { callbackController } from "./components/callback/callback-controller.js";
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import { logoutController } from "./components/logout/logout-controller.js";
 
 declare module 'express-session' {
   interface SessionData {
@@ -61,17 +61,25 @@ const createApp = (): Application => {
     authorizeController(req, res, next, true)
   );
 
-  app.get("/oidc/authorization-code/callback", callbackGetController);
+  app.get("/oidc/authorization-code/callback", callbackController);
   
   app.get("/", (req: Request, res: Response) => {
     res.redirect("/start");
+  });
+
+  app.get("/oidc/logout", (req: Request, res: Response, next: NextFunction) => 
+    logoutController(req, res, next)
+  );
+
+  app.get("/signed-out", (req: Request, res: Response) => {
+    res.render("logged-out.njk");
   });
 
   app.get("/start", (req: Request, res: Response) => {
     res.render("start.njk", 
       {
         authenticated: isAuthenticated(req, res),
-        serviceName: "Sample service",
+        serviceName: "Example service",
         // GOV.UK header config
         homepageUrl: "https://gov.uk",
         serviceUrl: `${getServiceUrl()}`
