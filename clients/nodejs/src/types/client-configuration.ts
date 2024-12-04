@@ -11,15 +11,16 @@ export default interface ClientConfiguration {
   ivIssuer?: string;
   ivDidUri?: string;
   ivPublicKeys?: DIDKeySet[];
-  scopes?: string[];
+  scopes: string[];
   authorizeRedirectUrl?: string;
   postLogoutRedirectUrl?: string;
-  claims?: UserIdentityClaim[];
-  idTokenSigningAlgorithm?: string;
-  tokenAuthMethod?: string;
-  authenticationVtr?: string;
-  identityVtr?: string;
-  uiLocales?: string;
+  claims: UserIdentityClaim[];
+  idTokenSigningAlgorithm: string;
+  tokenAuthMethod: string;
+  authenticationVtr: string;
+  identityVtr: string;
+  uiLocales: string;
   serviceUrl?: string;
   openidClientConfiguration?: openidClient.Configuration;
+  immediateRedirect: boolean;
 }
