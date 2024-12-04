@@ -117,7 +117,7 @@ export const callbackController = async (
             returnCode: returnCodeValue
         };
 
-        if (clientConfig.getImmediateRedirect && !coreIdentityPayload) {
+        if (clientConfig.getImmediateRedirect() && coreIdentityPayload === undefined) {
             res.redirect("/oidc/verify");
         } else {
             res.redirect("/home");
