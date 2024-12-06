@@ -3,7 +3,7 @@ export function getLogLevel(): string {
 }
 
 export function getOIDCClientId(): string {
-    return process.env.OIDC_CLIENT_ID;
+    return process.env.OIDC_CLIENT_ID || "HGIOgho9HIRhgoepdIOPFdIUWgewi0jw";
 }
 
 export function getNodeEnv(): string {
