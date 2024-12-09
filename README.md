@@ -1,7 +1,7 @@
 # GOV.UK One Login examples
 
 > [!WARNING]
-> These example applications and data are provided for demonstration purposes only and are not production quality code with approapriate levels of error handling.
+> These example applications and data are provided for demonstration purposes only and are not production quality code with appropriate levels of error handling.
 A number of example relying party [clients](clients) and [data](data)
 
 
