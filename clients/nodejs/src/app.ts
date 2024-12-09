@@ -93,7 +93,7 @@ const createApp = (): Application => {
       { 
         authenticated: true,
         // page config
-        serviceName: "Sample service",  
+        serviceName: "Example service",  
         resultData: req.session.user,
         // Service header config
         isProduction: getNodeEnv() == "development" ? false : true
