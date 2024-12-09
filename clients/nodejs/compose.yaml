@@ -1,0 +1,13 @@
+services:
+  example-nodejs:
+    image: ghcr.io/govuk-one-login/onboarding-examples-nodejs:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - simulator
+    network_mode: host
+  simulator:
+    image: ghcr.io/govuk-one-login/simulator:latest
+    ports:
+      - "3000:3000"
+    network_mode: host
