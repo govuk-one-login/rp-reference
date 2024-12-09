@@ -1,34 +1,63 @@
-# Example GOV.UK One Login Relying Party in Typescript
+# Example GOV.UK One Login relying party client in Typescript
 
 > [!WARNING]
 > This is intended as a example and is not production quality code.
 
-An example Node.js TypeScript application using GOV.UK One Login to authenticate users for use with the [GOV.UK One Login integration environment](https://docs.sign-in.service.gov.uk/before-integrating/register-and-manage-your-service/) and the [GOV.UK One Login Simulator](https://github.com/govuk-one-login/simulator).
+An example [Node.js](https://nodejs.org/) [TypeScript](https://www.typescriptlang.org/) application using GOV.UK One Login to authentication and identity.
 
-It is preconfigured to work with a local instance of the GOV.UK One Login Simulator. It can be configured to work with the integration environmnent by configuring a client using the [self service admin tool](https://admin.sign-in.service.gov.uk/register/enter-email-address) and updating the `.env`. 
+Works with the:
+
+- [GOV.UK One Login Simulator](https://github.com/govuk-one-login/simulator) 
+which is preconfigured to allow authentication and identity journeys.
+- [GOV.UK One Login integration environment](https://docs.sign-in.service.gov.uk/before-integrating/register-and-manage-your-service/) which requires you use the [GOV.UK One Login admin tool](https://admin.sign-in.service.gov.uk/register/enter-email-address) to create configuration and that you update your `.env.integration` configuration file with the Client ID and Public Key. 
 
 
-## Start the simulator
+### Get the example code
 
-The example requires a local copy of the simulator running on port 3000.
-
-Run the simulator locally with:
-
-`docker run --rm -d -p 3000:3000 --name simulator ghcr.io/govuk-one-login/simulator:latest`
-
-There are some npm run targets provided to help you work with the simulator with Docker Desktop:
-
-- `npm run simulator:start` - start a copy of the simulator
-- `npm run simulator:status`- check the status of the simulator
-- `npm run simulator:stop` - stop the simulator
-- `npm run simulator:shell` - run a shell inside the simulator
-
-## Run the example from source
 ```
 git clone https://github.com/govuk-one-login/onboarding-examples
-cd rp-reference/clients/nodejs
-npm install
-npm run build
-npm run dev:sim
-open http://localhost:8080
+cd onboarding-examples/clients/nodejs
 ```
+
+## Run example and simulator in Docker containers using compose
+
+```
+docker compose up 
+```
+
+visit http://localhost:8080
+
+## Run example from source and the simulator in a Docker container
+
+### 1. Start the simulator
+
+Run the simulator locally with
+
+```bash
+npm run simulator:start 
+```
+
+Check it is working with
+
+```
+curl -s http://localhost:3000/.well-known/openid-configuration | jq .
+```
+
+### 2. Build the example
+Resolve dependencies and build the app
+
+```
+nvm install 22.11.0 && nvm use 22.11.0
+npm ci && npm npm run build
+```
+
+### 3. Run the example
+Start the example with 
+```
+npm run dev:sim
+```
+
+Browse to open http://localhost:8080 then 
+- press the green start button
+- press the "Verify" button to check identity
+- press "Sign out" link from the menu
